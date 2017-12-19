@@ -4,7 +4,7 @@
 
 namespace Testura.ApiTester.Extensions
 {
-    internal static class TypeExtensions
+    internal static class TypeExtension
     {
         /// <summary>
         /// Examine if type is a collection.

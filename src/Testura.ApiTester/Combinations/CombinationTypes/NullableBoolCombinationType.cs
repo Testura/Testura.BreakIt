@@ -6,7 +6,7 @@ namespace Testura.ApiTester.Combinations.CombinationTypes
     {
         public Combination[] GetCombinations(string name, Type type, object defaultValue)
         {
-            return new[] {new Combination(name, false), new Combination(name, true), new Combination(name, null) };
+            return new[] { new Combination(name, false), new Combination(name, true), new Combination(name, null) };
         }
     }
 }

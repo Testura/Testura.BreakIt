@@ -26,7 +26,8 @@ namespace Testura.ApiTester.Combinations
             };
         }
 
-        public CombinationFactory(IDictionary<Type, ICombinationType> addCombinations) : this()
+        public CombinationFactory(IDictionary<Type, ICombinationType> addCombinations)
+            : this()
         {
             foreach (var addCombination in addCombinations)
             {
@@ -80,6 +81,7 @@ namespace Testura.ApiTester.Combinations
                     }
                 }
             }
+
             return allCombinations.ToArray();
         }
 

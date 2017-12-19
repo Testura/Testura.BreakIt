@@ -42,7 +42,7 @@ namespace Testura.ApiTester
             {
                 createdDefaultValues.Add(new DefaultValue(paramenters[n].Name, defaultValues[n]));
             }
-            
+
             var defaultObjectValues = BuildDefaultObject(method.GetParameters(), createdDefaultValues);
             for (int n = 0; n < defaultObjectValues.Count; n++)
             {
@@ -68,11 +68,12 @@ namespace Testura.ApiTester
                 {
                     invokeException = ex;
                 }
+
                 _logger.Log(combination, invokeException);
             }
         }
 
-        private static List<DefaultValueParameter> BuildDefaultObject(ParameterInfo[] parameterInfos, IList<DefaultValue> defaultValues)
+        private List<DefaultValueParameter> BuildDefaultObject(ParameterInfo[] parameterInfos, IList<DefaultValue> defaultValues)
         {
             var values = new List<DefaultValueParameter>();
             foreach (var parameterInfo in parameterInfos)
@@ -87,7 +88,8 @@ namespace Testura.ApiTester
                     values.Add(new DefaultValueParameter(parameterInfo, Activator.CreateInstance(parameterInfo.ParameterType)));
                 }
             }
+
             return values;
-        } 
+        }
     }
 }

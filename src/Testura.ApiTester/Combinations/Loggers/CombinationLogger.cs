@@ -13,10 +13,10 @@ namespace Testura.ApiTester.Combinations
             {
                 testingValue = $"Testing parameter {combination.Name} => null";
             }
-            else if (combination.LogValue.GetType() == typeof(string))
+            else if (combination.LogValue is string)
             {
                 var value = combination.LogValue;
-                if (string.IsNullOrEmpty((string) value))
+                if (string.IsNullOrEmpty((string)value))
                 {
                     testingValue = $"Testing parameter {combination.Name} => empty";
                 }
@@ -24,7 +24,6 @@ namespace Testura.ApiTester.Combinations
                 {
                     testingValue = $"Testing parameter {combination.Name} => \"{value}\"";
                 }
-                
             }
             else
             {
@@ -41,7 +40,6 @@ namespace Testura.ApiTester.Combinations
             }
 
             Log($"{testingValue} - {resultValue}");
-            
         }
 
         public abstract void Log(string message);
