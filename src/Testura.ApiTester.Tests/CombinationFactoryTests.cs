@@ -11,7 +11,7 @@ namespace Testura.ApiTester.Tests
         [SetUp]
         public void SetUp()
         {
-            _combinationFactory = new CombinationFactory();
+            _combinationFactory = new CombinationFactory(new CombinationFactoryOptions());
         }
 
         [Test]
@@ -21,6 +21,14 @@ namespace Testura.ApiTester.Tests
             Assert.AreEqual(2, combinations.Length);
             Assert.AreEqual(string.Empty, combinations[0].Value);
             Assert.AreEqual(null, combinations[1].Value);
+        }
+
+        [Test]
+        public void GetCombination_WhenGetCombinationForTypeThatsInExcludeList_ShouldReturnEmptyArray()
+        {
+            var combinationFactory = new CombinationFactory(new CombinationFactoryOptions().Exclude(((s, type) => type == typeof(string))));
+            var combinations = combinationFactory.GetCombinations("test", typeof(string), "s");
+            Assert.AreEqual(0, combinations.Length);
         }
     }
 }

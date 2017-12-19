@@ -59,6 +59,7 @@
     <Compile Include="Combinations\CombinationTypes\NullableIntCombinationType.cs" />
     <Compile Include="Combinations\CombinationTypes\IntCombinationType.cs" />
     <Compile Include="Combinations\CombinationTypes\StringCombinationType.cs" />
+    <Compile Include="Combinations\CombinationFactoryOptions.cs" />
     <Compile Include="Combinations\Loggers\CombinationLogger.cs" />
     <Compile Include="Combinations\ICombinationFactory.cs" />
     <Compile Include="Combinations\Loggers\ConsoleCombinationLogger.cs" />

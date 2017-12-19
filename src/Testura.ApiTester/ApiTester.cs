@@ -12,10 +12,10 @@ namespace Testura.ApiTester
         private readonly CombinationLogger _logger;
         private readonly ICombinationFactory _combinationFactory;
 
-        public ApiTester(CombinationLogger combinationLogger)
+        public ApiTester(CombinationLogger combinationLogger, Func<CombinationFactoryOptions, CombinationFactoryOptions> options = null)
         {
             _logger = combinationLogger;
-            _combinationFactory = new CombinationFactory();
+            _combinationFactory = new CombinationFactory(options?.Invoke(new CombinationFactoryOptions()) ?? new CombinationFactoryOptions());
         }
 
         public ApiTester(CombinationLogger combinationLogger, ICombinationFactory combinationFactory)

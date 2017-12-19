@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Force.DeepCloner;
 using Testura.ApiTester.Combinations.CombinationTypes;
 using Testura.ApiTester.Extensions;
@@ -8,10 +9,12 @@ namespace Testura.ApiTester.Combinations
 {
     public class CombinationFactory : ICombinationFactory
     {
+        private readonly CombinationFactoryOptions _config;
         private readonly IDictionary<Type, ICombinationType> _combinations;
 
-        public CombinationFactory()
+        public CombinationFactory(CombinationFactoryOptions config)
         {
+            _config = config ?? throw new ArgumentNullException(nameof(config));
             _combinations = new Dictionary<Type, ICombinationType>
             {
                 [typeof(string)] = new StringCombinationType(),
@@ -26,8 +29,8 @@ namespace Testura.ApiTester.Combinations
             };
         }
 
-        public CombinationFactory(IDictionary<Type, ICombinationType> addCombinations)
-            : this()
+        public CombinationFactory(CombinationFactoryOptions config, IDictionary<Type, ICombinationType> addCombinations)
+            : this(config)
         {
             foreach (var addCombination in addCombinations)
             {
@@ -44,6 +47,11 @@ namespace Testura.ApiTester.Combinations
 
         public Combination[] GetCombinations(string name, Type type, object defaultValue)
         {
+            if (_config.ExcludeList.Any(e => e(name, type)))
+            {
+                return new Combination[0];
+            }
+
             if (_combinations.ContainsKey(type))
             {
                 return _combinations[type].GetCombinations(name, type, defaultValue);
