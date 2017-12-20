@@ -1,45 +1,32 @@
-﻿using System;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Testura.ApiTester.Combinations.Loggers.Formatters;
 
-namespace Testura.ApiTester.Combinations
+namespace Testura.ApiTester.Combinations.Loggers
 {
     public abstract class CombinationLogger
     {
-        public void Log(Combination combination, Exception invokeException)
+        private readonly List<ILogFormatter> _logFormatters;
+
+        protected CombinationLogger()
         {
-            string testingValue;
-            string resultValue;
+            _logFormatters = new List<ILogFormatter>
+            {
+                new TestValueFormatter(),
+                new ValidationFormatter(),
+                new ReturnValueFormatter(),
+                new ExceptionValueFormatter()
+            };
+        }
 
-            if (combination.LogValue == null)
-            {
-                testingValue = $"Testing parameter {combination.Name} => null";
-            }
-            else if (combination.LogValue is string)
-            {
-                var value = combination.LogValue;
-                if (string.IsNullOrEmpty((string)value))
-                {
-                    testingValue = $"Testing parameter {combination.Name} => empty";
-                }
-                else
-                {
-                    testingValue = $"Testing parameter {combination.Name} => \"{value}\"";
-                }
-            }
-            else
-            {
-                testingValue = $"Testing parameter {combination.Name} => {combination.LogValue}";
-            }
+        protected CombinationLogger(List<ILogFormatter> logFormatters)
+        {
+            _logFormatters = new List<ILogFormatter>(logFormatters);
+        }
 
-            if (invokeException == null)
-            {
-                resultValue = "Result: No exception";
-            }
-            else
-            {
-                resultValue = $"Result: Exception - {invokeException.Message}";
-            }
-
-            Log($"{testingValue} - {resultValue}");
+        public void Log(CombinationResult combinationResult)
+        {
+            Log(string.Join(", ", _logFormatters.Select(l => l.GetFormat(combinationResult)).ToArray()));
         }
 
         public abstract void Log(string message);

@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="Combinations\Combination.cs" />
     <Compile Include="Combinations\CombinationFactory.cs" />
+    <Compile Include="Combinations\CombinationResult.cs" />
     <Compile Include="Combinations\CombinationTypes\FloatCombinationType.cs" />
     <Compile Include="Combinations\CombinationTypes\ICombinationType.cs" />
     <Compile Include="Combinations\CombinationTypes\DoubleCombinationType.cs" />
@@ -59,15 +60,21 @@
     <Compile Include="Combinations\CombinationTypes\NullableIntCombinationType.cs" />
     <Compile Include="Combinations\CombinationTypes\IntCombinationType.cs" />
     <Compile Include="Combinations\CombinationTypes\StringCombinationType.cs" />
-    <Compile Include="Combinations\CombinationFactoryOptions.cs" />
+    <Compile Include="ApiTesterOptions.cs" />
     <Compile Include="Combinations\Loggers\CombinationLogger.cs" />
     <Compile Include="Combinations\ICombinationFactory.cs" />
     <Compile Include="Combinations\Loggers\ConsoleCombinationLogger.cs" />
     <Compile Include="Combinations\Loggers\FileCombinationLogger.cs" />
+    <Compile Include="Combinations\Loggers\Formatters\ExceptionValueFormatter.cs" />
+    <Compile Include="Combinations\Loggers\Formatters\ILogFormatter.cs" />
+    <Compile Include="Combinations\Loggers\Formatters\ReturnValueFormatter.cs" />
+    <Compile Include="Combinations\Loggers\Formatters\TestValueFormatter.cs" />
+    <Compile Include="Combinations\Loggers\Formatters\ValidationFormatter.cs" />
     <Compile Include="Combinations\Loggers\MemoryCombinationLogger.cs" />
     <Compile Include="DefaultValues\DefaultValue.cs" />
     <Compile Include="DefaultValues\DefaultValueParameter.cs" />
-    <Compile Include="Extensions\TypeExtension.cs" />
+    <Compile Include="Extensions\ObjectExtensions.cs" />
+    <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ApiTester.cs" />
   </ItemGroup>

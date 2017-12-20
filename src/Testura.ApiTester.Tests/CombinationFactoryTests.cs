@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿using System;
+using System.Collections.Generic;
+using NUnit.Framework;
 using Testura.ApiTester.Combinations;
 
 namespace Testura.ApiTester.Tests
@@ -11,7 +13,7 @@ namespace Testura.ApiTester.Tests
         [SetUp]
         public void SetUp()
         {
-            _combinationFactory = new CombinationFactory(new CombinationFactoryOptions());
+            _combinationFactory = new CombinationFactory(new List<Func<string, Type, bool>>());
         }
 
         [Test]
@@ -26,7 +28,7 @@ namespace Testura.ApiTester.Tests
         [Test]
         public void GetCombination_WhenGetCombinationForTypeThatsInExcludeList_ShouldReturnEmptyArray()
         {
-            var combinationFactory = new CombinationFactory(new CombinationFactoryOptions().Exclude(((s, type) => type == typeof(string))));
+            var combinationFactory = new CombinationFactory(new List<Func<string, Type, bool>> { (s, type) => type == typeof(string) });
             var combinations = combinationFactory.GetCombinations("test", typeof(string), "s");
             Assert.AreEqual(0, combinations.Length);
         }

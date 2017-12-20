@@ -9,12 +9,12 @@ namespace Testura.ApiTester.Combinations
 {
     public class CombinationFactory : ICombinationFactory
     {
-        private readonly CombinationFactoryOptions _config;
+        private readonly List<Func<string, Type, bool>> _excludeList;
         private readonly IDictionary<Type, ICombinationType> _combinations;
 
-        public CombinationFactory(CombinationFactoryOptions config)
+        public CombinationFactory(List<Func<string, Type, bool>> excludeList)
         {
-            _config = config ?? throw new ArgumentNullException(nameof(config));
+            _excludeList = excludeList ?? new List<Func<string, Type, bool>>();
             _combinations = new Dictionary<Type, ICombinationType>
             {
                 [typeof(string)] = new StringCombinationType(),
@@ -29,8 +29,8 @@ namespace Testura.ApiTester.Combinations
             };
         }
 
-        public CombinationFactory(CombinationFactoryOptions config, IDictionary<Type, ICombinationType> addCombinations)
-            : this(config)
+        public CombinationFactory(List<Func<string, Type, bool>> excludeList, IDictionary<Type, ICombinationType> addCombinations)
+            : this(excludeList)
         {
             foreach (var addCombination in addCombinations)
             {
@@ -47,7 +47,7 @@ namespace Testura.ApiTester.Combinations
 
         public Combination[] GetCombinations(string name, Type type, object defaultValue)
         {
-            if (_config.ExcludeList.Any(e => e(name, type)))
+            if (_excludeList.Any(e => e(name, type)))
             {
                 return new Combination[0];
             }
