@@ -50,6 +50,8 @@
     <Compile Include="Combinations\Combination.cs" />
     <Compile Include="Combinations\CombinationFactory.cs" />
     <Compile Include="Combinations\CombinationResult.cs" />
+    <Compile Include="Combinations\CombinationTypes\NullableEnumCombinationType.cs" />
+    <Compile Include="Combinations\CombinationTypes\EnumCombinationType.cs" />
     <Compile Include="Combinations\CombinationTypes\FloatCombinationType.cs" />
     <Compile Include="Combinations\CombinationTypes\ICombinationType.cs" />
     <Compile Include="Combinations\CombinationTypes\DoubleCombinationType.cs" />

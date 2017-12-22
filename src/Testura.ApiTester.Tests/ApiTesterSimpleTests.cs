@@ -8,11 +8,22 @@ namespace Testura.ApiTester.Tests
     [TestFixture]
     public class ApiTesterSimpleTests : ApiTesterBase
     {
+        private enum SomeEnum { Hello, bu };
+
         [Test]
         public void Execute_WhenExecuteApiTesterWithSimpleMethod_ShouldGetCorrectNumberOfResults()
         {
             var myApi = new MyApi();
             var results = ApiTester.Execute(myApi, nameof(myApi.CallApi), new List<object> { 1, "someName" });
+
+            Assert.AreEqual(4, results.Count);
+        }
+
+        [Test]
+        public void Execute_WhenExecuteApiTesterWithSimpleMethodWithNullable_ShouldGetCorrectNumberOfResults()
+        {
+            var myApi = new MyApi();
+            var results = ApiTester.Execute(myApi, nameof(myApi.CallApiEnums), new List<object> { SomeEnum.Hello, SomeEnum.bu });
 
             Assert.AreEqual(4, results.Count);
         }
@@ -75,6 +86,8 @@ namespace Testura.ApiTester.Tests
         private class MyApi
         {
             public void CallApi(int id, string name) { }
+
+            public void CallApiEnums(SomeEnum some, SomeEnum? someNullable) { }
 
             public int CallApiWithValidation(int id, string name)
             {

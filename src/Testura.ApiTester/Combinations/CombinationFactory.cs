@@ -25,7 +25,7 @@ namespace Testura.ApiTester.Combinations
                 [typeof(double?)] = new NullableDoubleCombinationType(),
                 [typeof(float?)] = new NullableFloatCombinationType(),
                 [typeof(bool?)] = new NullableBoolCombinationType(),
-                [typeof(bool)] = new BoolCombinationType(),
+                [typeof(bool)] = new BoolCombinationType()
             };
         }
 
@@ -62,6 +62,12 @@ namespace Testura.ApiTester.Combinations
                 return new[] { new Combination(name, null) };
             }
 
+            var enumCombinations = CheckEnum(name, type,  defaultValue);
+            if (enumCombinations != null)
+            {
+                return enumCombinations;
+            }
+
             if (IsBuiltInTye(type))
             {
                 throw new Exception($"Failed to create combination for name = {name}, type = {type}");
@@ -93,7 +99,23 @@ namespace Testura.ApiTester.Combinations
             return allCombinations.ToArray();
         }
 
-        private static bool IsBuiltInTye(Type type)
+        private Combination[] CheckEnum(string name, Type type, object defaultValue)
+        {
+            if (type.IsEnum)
+            {
+                return new EnumCombinationType().GetCombinations(name, type, defaultValue);
+            }
+
+            var underlying = Nullable.GetUnderlyingType(type);
+            if (underlying != null && underlying.IsEnum)
+            {
+                return new NullableEnumCombinationType().GetCombinations(name, underlying, defaultValue);
+            }
+
+            return null;
+        }
+
+        private bool IsBuiltInTye(Type type)
         {
             return type.Module.ScopeName == "CommonLanguageRuntimeLibrary";
         }
