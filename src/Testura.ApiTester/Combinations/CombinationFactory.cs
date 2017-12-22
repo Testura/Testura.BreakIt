@@ -68,7 +68,7 @@ namespace Testura.ApiTester.Combinations
                 return enumCombinations;
             }
 
-            if (IsBuiltInTye(type))
+            if (IsBuiltInType(type))
             {
                 throw new Exception($"Failed to create combination for name = {name}, type = {type}");
             }
@@ -115,7 +115,7 @@ namespace Testura.ApiTester.Combinations
             return null;
         }
 
-        private bool IsBuiltInTye(Type type)
+        private bool IsBuiltInType(Type type)
         {
             return type.Module.ScopeName == "CommonLanguageRuntimeLibrary";
         }
