@@ -10,22 +10,27 @@ namespace Testura.FunkyApiTester.Combinations.ComplexTypes
     {
         public Combination[] GetCombinations(string name, Type type, object defaultValue, IList<Func<string, Type, bool>> excludeList, ICombinationFactory combinationFactory)
         {
-            if ((!type.IsCollection() && !type.IsICollection()) || defaultValue == null)
+            if (!(defaultValue is IList))
             {
                 return null;
             }
 
-            var combinations = new List<Combination>();
-            var listClone = defaultValue.DeepClone();
-            var enumerable = listClone as IEnumerable;
-            int index = 0;
-            foreach (var item in enumerable)
+            var allCombinations = new List<Combination>();
+            var listClone = defaultValue.DeepClone() as IList;
+            for (int n = 0; n < listClone.Count; n++)
             {
-               combinations.AddRange(combinationFactory.GetCombinations($"{name}.{type.ConvertToReadableType()}[{index}]", item.GetType(), item, excludeList));
-                index++;
+                var item = listClone[n];
+                var combinations = combinationFactory.GetCombinations($"{name}.{type.ConvertToReadableType()}[{n}]", item.GetType(), item, excludeList);
+                foreach (var comb in combinations)
+                {
+                    var newList = listClone.DeepClone();
+                    newList[n] = comb.Value;
+                    comb.Value = newList;
+                    allCombinations.Add(comb);
+                }
             }
 
-            return combinations.ToArray();
+            return allCombinations.ToArray();
         }
     }
 }

@@ -19,7 +19,14 @@ namespace Testura.FunkyApiTester.Combinations.ComplexTypes
             var dictionaryClone = defaultValue.DeepClone() as IDictionary;
             foreach (var key in dictionaryClone.Keys)
             {
-                combinations.AddRange(combinationFactory.GetCombinations($"{name}.{type.ConvertToReadableType()}[{key}]", dictionaryClone[key].GetType(), dictionaryClone[key], excludeList));
+                var combination = combinationFactory.GetCombinations($"{name}.{type.ConvertToReadableType()}[{key}]", dictionaryClone[key].GetType(), dictionaryClone[key], excludeList);
+                foreach (var combination1 in combination)
+                {
+                    var newDic = dictionaryClone.DeepClone();
+                    newDic[key] = combination1.Value;
+                    combination1.Value = newDic;
+                    combinations.Add(combination1);
+                }
             }
 
             return combinations.ToArray();
