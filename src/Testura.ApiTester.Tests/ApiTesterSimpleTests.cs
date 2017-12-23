@@ -25,7 +25,7 @@ namespace Testura.ApiTester.Tests
             var myApi = new MyApi();
             var results = ApiTester.Execute(myApi, nameof(myApi.CallApiEnums), new List<object> { SomeEnum.Hello, SomeEnum.bu });
 
-            Assert.AreEqual(4, results.Count);
+            Assert.AreEqual(5, results.Count);
         }
 
         [Test]
@@ -35,6 +35,33 @@ namespace Testura.ApiTester.Tests
             ApiTester.Execute(myApi, nameof(myApi.CallApi), new List<object> { 1, "someName" });
 
             Assert.AreEqual(4, LogLines.Count);
+        }
+
+        [Test]
+        public void Execute_WhenExecuteApiTesterWithMethodWithList_ShouldGetCorrectNumberOfResults()
+        {
+            var myApi = new MyApi();
+            var result = ApiTester.Execute(myApi, nameof(myApi.CallApiList), new List<object> { new List<string> { "Buu" } });
+
+            Assert.AreEqual(2, result.Count);
+        }
+
+        [Test]
+        public void Execute_WhenExecuteApiTesterWithMethodWithListThatContainsComplexClass_ShouldGetCorrectNumberOfResults()
+        {
+            var myApi = new MyApi();
+            var result = ApiTester.Execute(myApi, nameof(myApi.CallApiListComplex), new List<object> { new List<SomeComplexType> { new SomeComplexType { Hej = "test", Number = 1 } } });
+
+            Assert.AreEqual(4, result.Count);
+        }
+
+        [Test]
+        public void Execute_WhenExecuteApiTesterWithMethodWithDictionaryThatContainsComplexClass_ShouldGetCorrectNumberOfResults()
+        {
+            var myApi = new MyApi();
+            var result = ApiTester.Execute(myApi, nameof(myApi.CallApiDictionaryComplex), new List<object> { new Dictionary<string, SomeComplexType> { ["Bu"] = new SomeComplexType { Hej = "test", Number = 1 }, ["Tjo"] = new SomeComplexType { Hej = "test", Number = 1 } } });
+
+            Assert.AreEqual(8, result.Count);
         }
 
         [Test]
@@ -95,6 +122,12 @@ namespace Testura.ApiTester.Tests
 
             public void CallApiEnums(SomeEnum some, SomeEnum? someNullable) { }
 
+            public void CallApiList(List<string> hej) { }
+
+            public void CallApiListComplex(List<SomeComplexType> list) { }
+
+            public void CallApiDictionaryComplex(Dictionary<string, SomeComplexType> list) { }
+
             public int CallApiWithValidation(int id, string name)
             {
                 if (id == int.MaxValue)
@@ -114,6 +147,12 @@ namespace Testura.ApiTester.Tests
 
                 return 1;
             }
+        }
+
+        private class SomeComplexType
+        {
+            public string Hej { get; set; }
+            public int Number { get; set; }
         }
     }
 }

@@ -22,12 +22,12 @@ namespace Testura.ApiTester
             : this()
         {
             _logger = combinationLogger;
-            _combinationFactory = combinationFactory;
+            _combinationFactory = combinationFactory ?? new CombinationFactory();
         }
 
         public IList<CombinationResult> Execute(object testObject, string methodName, IList<object> defaultValues, ApiTesterOptions options = null)
         {
-            return Execute(testObject, testObject.GetType().GetMethod(methodName), defaultValues);
+            return Execute(testObject, testObject.GetType().GetMethod(methodName), defaultValues, options);
         }
 
         public IList<CombinationResult> Execute(object testObject, MethodInfo method, IList<object> defaultValues, ApiTesterOptions options = null)
@@ -59,7 +59,7 @@ namespace Testura.ApiTester
         {
             var results = new List<CombinationResult>();
             var type = values[currentIndex].ParameterInfo.ParameterType;
-            var combinations = _combinationFactory.GetCombinations(values[currentIndex].ParameterInfo.Name, type, values[currentIndex].DefaultValue, options.ExcludeList);
+            var combinations = _combinationFactory.GetCombinations(values[currentIndex].ParameterInfo.Name, type, values[currentIndex].DefaultValue, options?.ExcludeList);
             var list = new object[values.Count];
             values.Select(v => v.DefaultValue).ToList().CopyTo(list);
             foreach (var combination in combinations)
@@ -81,7 +81,7 @@ namespace Testura.ApiTester
                     Name = combination.Name,
                     Exception = invokeException,
                     TestingValue = combination,
-                    ResultOk = options.Validation?.Invoke(returnValue, invokeException),
+                    ResultOk = options?.Validation?.Invoke(returnValue, invokeException),
                     ReturnValue = returnValue
                 };
 

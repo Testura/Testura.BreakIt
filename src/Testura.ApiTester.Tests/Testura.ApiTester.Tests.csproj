@@ -54,7 +54,7 @@
   <ItemGroup>
     <Compile Include="ApiTesterBase.cs" />
     <Compile Include="ApiTesterSimpleTests.cs" />
-    <Compile Include="CombinationFactoryTests.cs" />
+    <Compile Include="Combinations\CombinationFactoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

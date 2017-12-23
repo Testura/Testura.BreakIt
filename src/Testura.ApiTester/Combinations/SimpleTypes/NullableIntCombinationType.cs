@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Testura.ApiTester.Combinations.CombinationTypes
+namespace Testura.ApiTester.Combinations.SimpleTypes
 {
     public class NullableIntCombinationType : ICombinationType
     {

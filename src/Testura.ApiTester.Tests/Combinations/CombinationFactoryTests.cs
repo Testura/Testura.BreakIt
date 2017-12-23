@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using Testura.ApiTester.Combinations;
 
-namespace Testura.ApiTester.Tests
+namespace Testura.ApiTester.Tests.Combinations
 {
     [TestFixture]
     public class CombinationFactoryTests

@@ -1,18 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Force.DeepCloner;
-using Testura.ApiTester.Combinations.CombinationTypes;
-using Testura.ApiTester.Extensions;
+using Testura.ApiTester.Combinations.ComplexTypes;
+using Testura.ApiTester.Combinations.SimpleTypes;
 
 namespace Testura.ApiTester.Combinations
 {
     public class CombinationFactory : ICombinationFactory
     {
+        private readonly IList<IComplexType> _complexCombinations;
         private readonly IDictionary<Type, ICombinationType> _combinations;
 
         public CombinationFactory()
         {
+            _complexCombinations = new List<IComplexType>
+            {
+                new CollectionCombinationType(),
+                new DictionaryCombinationType(),
+                new EnumCombinationType(),
+                new CustomClassCombinationType()
+            };
+
             _combinations = new Dictionary<Type, ICombinationType>
             {
                 [typeof(string)] = new StringCombinationType(),
@@ -55,67 +63,16 @@ namespace Testura.ApiTester.Combinations
                 return _combinations[type].GetCombinations(name, type, defaultValue);
             }
 
-            if (type.IsCollection() || type.IsICollection())
+            foreach (var complexCombination in _complexCombinations)
             {
-                return new[] { new Combination(name, null) };
-            }
-
-            var enumCombinations = CheckEnum(name, type,  defaultValue);
-            if (enumCombinations != null)
-            {
-                return enumCombinations;
-            }
-
-            if (IsBuiltInType(type))
-            {
-                throw new Exception($"Failed to create combination for name = {name}, type = {type}");
-            }
-
-            if (defaultValue == null)
-            {
-                return new Combination[0];
-            }
-
-            var allCombinations = new List<Combination>();
-            var properties = type.GetProperties();
-            foreach (var propertyInfo in properties)
-            {
-                var clone = defaultValue.DeepClone();
-                var combinations = GetCombinations($"{name}.{propertyInfo.Name}", propertyInfo.PropertyType, propertyInfo.GetValue(clone), excludeList);
+                var combinations = complexCombination.GetCombinations(name, type, defaultValue, excludeList, this);
                 if (combinations != null)
                 {
-                    foreach (var combination in combinations)
-                    {
-                        var secondClone = clone.DeepClone();
-                        propertyInfo.SetValue(secondClone, combination.Value);
-                        combination.Value = secondClone;
-                        allCombinations.Add(combination);
-                    }
+                    return combinations;
                 }
             }
 
-            return allCombinations.ToArray();
-        }
-
-        private Combination[] CheckEnum(string name, Type type, object defaultValue)
-        {
-            if (type.IsEnum)
-            {
-                return new EnumCombinationType().GetCombinations(name, type, defaultValue);
-            }
-
-            var underlying = Nullable.GetUnderlyingType(type);
-            if (underlying != null && underlying.IsEnum)
-            {
-                return new NullableEnumCombinationType().GetCombinations(name, underlying, defaultValue);
-            }
-
-            return null;
-        }
-
-        private bool IsBuiltInType(Type type)
-        {
-            return type.Module.ScopeName == "CommonLanguageRuntimeLibrary";
+            return new Combination[0];
         }
     }
 }
