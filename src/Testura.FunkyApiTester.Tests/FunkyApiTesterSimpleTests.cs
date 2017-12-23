@@ -70,7 +70,7 @@ namespace Testura.FunkyApiTester.Tests
             var myApi = new MyApi();
             var memoryLogger = new MemoryCombinationLogger();
             var options = new TesterOptions();
-            options.SetReturnValidation((o1, exception) => (int)o1 == 1);
+            options.Validation = ((o1, exception) => (int)o1 == 1);
 
             var apiTester = new Testura.FunkyApiTester.FunkyApiTester(memoryLogger);
             var result = apiTester.Execute(myApi, nameof(myApi.CallApiWithValidation), new List<object> { 1, "someName" }, options);
@@ -85,7 +85,7 @@ namespace Testura.FunkyApiTester.Tests
             var myApi = new MyApi();
             var memoryLogger = new MemoryCombinationLogger();
             var options = new TesterOptions();
-            options.SetReturnValidation((o1, exception) => (int)o1 == 1);
+            options.Validation = ((o1, exception) => (int)o1 == 1);
 
             var apiTester = new Testura.FunkyApiTester.FunkyApiTester(memoryLogger);
             apiTester.Execute(myApi, nameof(myApi.CallApiWithValidation), new List<object> { 1, "someName" }, options);
@@ -98,7 +98,7 @@ namespace Testura.FunkyApiTester.Tests
         {
             var myApi = new MyApi();
             var memoryLogger = new MemoryCombinationLogger();
-            var apiTester = new Testura.FunkyApiTester.FunkyApiTester(memoryLogger);
+            var apiTester = new FunkyApiTester(memoryLogger);
             apiTester.Execute(myApi, nameof(myApi.CallApiWithException), new List<object> { 1, "someName" });
 
             StringAssert.Contains("Something is wrong", memoryLogger.LogLines[0]);
