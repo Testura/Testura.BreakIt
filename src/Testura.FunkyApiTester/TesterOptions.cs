@@ -10,18 +10,15 @@ namespace Testura.FunkyApiTester
             ExcludeList = new List<Func<string, Type, bool>>();
         }
 
-        internal IList<Func<string, Type, bool>> ExcludeList { get; }
+        public Func<object, Exception, bool> Validation { get; set; }
 
-        internal Func<object, Exception, bool> Validation { get; private set; }
+        public Action<object[]> SetUp { get; set; }
+
+        internal IList<Func<string, Type, bool>> ExcludeList { get; }
 
         public void AddExclude(Func<string, Type, bool> exclude)
         {
             ExcludeList.Add(exclude);
-        }
-
-        public void ReturnValidation(Func<object, Exception, bool> validation)
-        {
-            Validation = validation;
         }
     }
 }

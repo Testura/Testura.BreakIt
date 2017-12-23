@@ -69,6 +69,7 @@ namespace Testura.FunkyApiTester
                 object returnValue = null;
                 try
                 {
+                    options.SetUp?.Invoke(list);
                     returnValue = method.Invoke(testObject, list);
                 }
                 catch (Exception ex)
