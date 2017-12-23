@@ -6,12 +6,12 @@
 
         public string GetFormat(CombinationResult result)
         {
-            if (result.IsValidationOk == null)
+            if (result.ResultOk == null)
             {
                 return $"{Tag} No validation done";
             }
 
-            return result.IsValidationOk.Value ? $"{Tag} Validation OK" : $"{Tag} Validation NOT OK";
+            return result.ResultOk.Value ? $"{Tag} Validation OK" : $"{Tag} Validation NOT OK";
         }
     }
 }

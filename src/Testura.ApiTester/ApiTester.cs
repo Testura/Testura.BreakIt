@@ -11,28 +11,26 @@ namespace Testura.ApiTester
     public class ApiTester
     {
         private readonly CombinationLogger _logger;
-        private readonly ApiTesterOptions _options;
         private readonly ICombinationFactory _combinationFactory;
 
-        public ApiTester(CombinationLogger combinationLogger, Func<ApiTesterOptions, ApiTesterOptions> options = null)
+        public ApiTester()
         {
-            _logger = combinationLogger;
-            _options = options?.Invoke(new ApiTesterOptions()) ?? new ApiTesterOptions();
-            _combinationFactory = new CombinationFactory(_options.ExcludeList);
+            _combinationFactory = new CombinationFactory();
         }
 
-        public ApiTester(CombinationLogger combinationLogger, ICombinationFactory combinationFactory, Func<ApiTesterOptions, ApiTesterOptions> options = null)
-            : this(combinationLogger, options)
+        public ApiTester(CombinationLogger combinationLogger = null, ICombinationFactory combinationFactory = null)
+            : this()
         {
+            _logger = combinationLogger;
             _combinationFactory = combinationFactory;
         }
 
-        public IList<CombinationResult> Execute(object testObject, string methodName, IList<object> defaultValues)
+        public IList<CombinationResult> Execute(object testObject, string methodName, IList<object> defaultValues, ApiTesterOptions options = null)
         {
             return Execute(testObject, testObject.GetType().GetMethod(methodName), defaultValues);
         }
 
-        public IList<CombinationResult> Execute(object testObject, MethodInfo method, IList<object> defaultValues)
+        public IList<CombinationResult> Execute(object testObject, MethodInfo method, IList<object> defaultValues, ApiTesterOptions options = null)
         {
             var paramenters = method.GetParameters();
             if (defaultValues.Count != paramenters.Length)
@@ -51,17 +49,17 @@ namespace Testura.ApiTester
             var defaultObjectValues = BuildDefaultObject(method.GetParameters(), createdDefaultValues);
             for (int n = 0; n < defaultObjectValues.Count; n++)
             {
-                results.AddRange(TestCombinations(testObject, method, defaultObjectValues, n));
+                results.AddRange(TestCombinations(testObject, method, defaultObjectValues, n, options));
             }
 
             return results;
         }
 
-        private List<CombinationResult> TestCombinations(object testObject, MethodInfo method, List<DefaultValueParameter> values, int currentIndex)
+        private List<CombinationResult> TestCombinations(object testObject, MethodInfo method, IList<DefaultValueParameter> values, int currentIndex, ApiTesterOptions options)
         {
             var results = new List<CombinationResult>();
             var type = values[currentIndex].ParameterInfo.ParameterType;
-            var combinations = _combinationFactory.GetCombinations(values[currentIndex].ParameterInfo.Name, type, values[currentIndex].DefaultValue);
+            var combinations = _combinationFactory.GetCombinations(values[currentIndex].ParameterInfo.Name, type, values[currentIndex].DefaultValue, options.ExcludeList);
             var list = new object[values.Count];
             values.Select(v => v.DefaultValue).ToList().CopyTo(list);
             foreach (var combination in combinations)
@@ -83,11 +81,11 @@ namespace Testura.ApiTester
                     Name = combination.Name,
                     Exception = invokeException,
                     TestingValue = combination,
-                    IsValidationOk = _options.Validation?.Invoke(returnValue, invokeException),
+                    ResultOk = options.Validation?.Invoke(returnValue, invokeException),
                     ReturnValue = returnValue
                 };
 
-                _logger.Log(result);
+                _logger?.Log(result);
                 results.Add(result);
             }
 

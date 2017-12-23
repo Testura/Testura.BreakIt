@@ -8,7 +8,7 @@ namespace Testura.ApiTester.Combinations
 
         public Combination TestingValue { get; set; }
 
-        public bool? IsValidationOk { get; set; }
+        public bool? ResultOk { get; set; }
 
         public object ReturnValue { get; set; }
 

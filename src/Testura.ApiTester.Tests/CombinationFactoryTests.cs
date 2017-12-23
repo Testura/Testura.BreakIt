@@ -13,7 +13,7 @@ namespace Testura.ApiTester.Tests
         [SetUp]
         public void SetUp()
         {
-            _combinationFactory = new CombinationFactory(new List<Func<string, Type, bool>>());
+            _combinationFactory = new CombinationFactory();
         }
 
         [Test]
@@ -28,8 +28,8 @@ namespace Testura.ApiTester.Tests
         [Test]
         public void GetCombination_WhenGetCombinationForTypeThatsInExcludeList_ShouldReturnEmptyArray()
         {
-            var combinationFactory = new CombinationFactory(new List<Func<string, Type, bool>> { (s, type) => type == typeof(string) });
-            var combinations = combinationFactory.GetCombinations("test", typeof(string), "s");
+            var combinationFactory = new CombinationFactory();
+            var combinations = combinationFactory.GetCombinations("test", typeof(string), "s", new List<Func<string, Type, bool>> { (s, type) => type == typeof(string) });
             Assert.AreEqual(0, combinations.Length);
         }
     }

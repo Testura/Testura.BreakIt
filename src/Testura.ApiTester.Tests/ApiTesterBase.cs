@@ -18,7 +18,7 @@ namespace Testura.ApiTester.Tests
         public void SetUp()
         {
             MemoryCombinationLogger = new MemoryCombinationLogger();
-            ApiTester = new ApiTester(MemoryCombinationLogger);
+            ApiTester = new ApiTester(combinationLogger: MemoryCombinationLogger);
         }
     }
 }

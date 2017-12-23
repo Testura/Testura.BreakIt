@@ -42,11 +42,14 @@ namespace Testura.ApiTester.Tests
         {
             var myApi = new MyApi();
             var memoryLogger = new MemoryCombinationLogger();
-            var apiTester = new ApiTester(memoryLogger, (o) => o.ReturnValidation((o1, exception) => (int)o1 == 1));
-            var result = apiTester.Execute(myApi, nameof(myApi.CallApiWithValidation), new List<object> { 1, "someName" });
+            var options = new ApiTesterOptions();
+            options.ReturnValidation((o1, exception) => (int)o1 == 1);
 
-            Assert.IsFalse(result[0].IsValidationOk);
-            Assert.IsTrue(result[1].IsValidationOk);
+            var apiTester = new ApiTester(memoryLogger);
+            var result = apiTester.Execute(myApi, nameof(myApi.CallApiWithValidation), new List<object> { 1, "someName" }, options);
+
+            Assert.IsFalse(result[0].ResultOk);
+            Assert.IsTrue(result[1].ResultOk);
         }
 
         [Test]
@@ -54,8 +57,11 @@ namespace Testura.ApiTester.Tests
         {
             var myApi = new MyApi();
             var memoryLogger = new MemoryCombinationLogger();
-            var apiTester = new ApiTester(memoryLogger, (o) => o.ReturnValidation((o1, exception) => (int)o1 == 1));
-            apiTester.Execute(myApi, nameof(myApi.CallApiWithValidation), new List<object> { 1, "someName" });
+            var options = new ApiTesterOptions();
+            options.ReturnValidation((o1, exception) => (int)o1 == 1);
+
+            var apiTester = new ApiTester(memoryLogger);
+            apiTester.Execute(myApi, nameof(myApi.CallApiWithValidation), new List<object> { 1, "someName" }, options);
 
             StringAssert.Contains("NOT OK", memoryLogger.LogLines[0]);
         }
