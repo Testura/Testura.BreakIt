@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using NUnit.Framework;
-using Testura.FunkyValueTester.Combinations.Loggers;
+using Testura.FunkyValueTester.Combinations.CombinationLoggers;
 
 namespace Testura.FunkyValueTester.Tests
 {

@@ -1,4 +1,4 @@
-﻿namespace Testura.FunkyValueTester.Combinations.Loggers.Formatters
+﻿namespace Testura.FunkyValueTester.Combinations.CombinationLoggers.Formatters
 {
     public class ValidationFormatter : ILogFormatter
     {
@@ -6,12 +6,12 @@
 
         public string GetFormat(CombinationResult result)
         {
-            if (result.ResultOk == null)
+            if (result.IsSuccess == null)
             {
                 return $"{Tag} No validation done";
             }
 
-            return result.ResultOk.Value ? $"{Tag} Validation OK" : $"{Tag} Validation NOT OK";
+            return result.IsSuccess.Value ? $"{Tag} Validation OK" : $"{Tag} Validation NOT OK";
         }
     }
 }

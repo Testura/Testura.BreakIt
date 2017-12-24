@@ -4,9 +4,9 @@ namespace Testura.FunkyValueTester.Combinations.SimpleTypes
 {
     public class NullableFloatCombinationType : ICombinationType
     {
-        public Combination[] GetCombinations(string name, Type type, object defaultValue)
+        public Combination[] GetCombinations(string memberPath, Type type, object defaultValue)
         {
-            return new[] { new Combination(name, float.MaxValue), new Combination(name, float.MinValue), new Combination(name, null) };
+            return new[] { new Combination(memberPath, float.MaxValue), new Combination(memberPath, float.MinValue), new Combination(memberPath, null) };
         }
     }
 }

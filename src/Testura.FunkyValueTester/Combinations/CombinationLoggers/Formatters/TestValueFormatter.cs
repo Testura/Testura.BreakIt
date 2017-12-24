@@ -1,11 +1,11 @@
-﻿namespace Testura.FunkyValueTester.Combinations.Loggers.Formatters
+﻿namespace Testura.FunkyValueTester.Combinations.CombinationLoggers.Formatters
 {
     public class TestValueFormatter : ILogFormatter
     {
         public string GetFormat(CombinationResult result)
         {
             var combination = result.TestingValue;
-            var tag = $"Testing parameter {combination.Name} =>";
+            var tag = $"Testing parameter {combination.MemberPath} =>";
 
             if (combination.LogValue == null)
             {

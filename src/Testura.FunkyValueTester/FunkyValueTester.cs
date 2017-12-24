@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Testura.FunkyValueTester.Combinations;
-using Testura.FunkyValueTester.Combinations.Loggers;
+using Testura.FunkyValueTester.Combinations.CombinationLoggers;
 using Testura.FunkyValueTester.DefaultValues;
 
 namespace Testura.FunkyValueTester
@@ -38,24 +38,20 @@ namespace Testura.FunkyValueTester
                 throw new Exception("Each parameter must have a default value");
             }
 
-            var createdDefaultValues = new List<DefaultValue>();
-            var results = new List<CombinationResult>();
-
-            for (int n = 0; n < paramenters.Length; n++)
-            {
-                createdDefaultValues.Add(new DefaultValue(paramenters[n].Name, defaultValues[n]));
-            }
-
+            var createdDefaultValues = paramenters.Select(
+                (parameter, index) => new DefaultValue(parameter.Name, defaultValues[index])).ToList();
             var defaultObjectValues = BuildDefaultObject(method.GetParameters(), createdDefaultValues);
-            for (int n = 0; n < defaultObjectValues.Count; n++)
+
+            var results = new List<CombinationResult>();
+            for (int i = 0; i < defaultObjectValues.Count; i++)
             {
-                results.AddRange(TestCombinations(testObject, method, defaultObjectValues, n, options));
+                results.AddRange(TestCombinations(testObject, method, defaultObjectValues, i, options));
             }
 
             return results;
         }
 
-        private List<CombinationResult> TestCombinations(object testObject, MethodInfo method, IList<DefaultValueParameter> values, int currentIndex, TesterOptions options)
+        private IEnumerable<CombinationResult> TestCombinations(object testObject, MethodInfo method, IList<DefaultValueParameter> values, int currentIndex, TesterOptions options)
         {
             var results = new List<CombinationResult>();
             var type = values[currentIndex].ParameterInfo.ParameterType;
@@ -64,49 +60,47 @@ namespace Testura.FunkyValueTester
             values.Select(v => v.DefaultValue).ToList().CopyTo(list);
             foreach (var combination in combinations)
             {
-                list[currentIndex] = combination.Value;
-                Exception invokeException = null;
-                object returnValue = null;
-                try
-                {
-                    options?.SetUp?.Invoke(list);
-                    returnValue = method.Invoke(testObject, list);
-                }
-                catch (Exception ex)
-                {
-                    invokeException = ex.InnerException;
-                }
-
-                var result = new CombinationResult
-                {
-                    Name = combination.Name,
-                    Exception = invokeException,
-                    TestingValue = combination,
-                    ResultOk = options?.Validation?.Invoke(returnValue, invokeException),
-                    ReturnValue = returnValue
-                };
-
-                _logger?.Log(result);
-                results.Add(result);
+                results.Add(InvokeMethood(testObject, method, currentIndex, options, list, combination));
             }
 
             return results;
         }
 
-        private List<DefaultValueParameter> BuildDefaultObject(ParameterInfo[] parameterInfos, IList<DefaultValue> defaultValues)
+        private CombinationResult InvokeMethood(object testObject, MethodInfo method, int currentIndex, TesterOptions options, object[] list, Combination combination)
+        {
+            list[currentIndex] = combination.Value;
+            Exception invokeException = null;
+            object returnValue = null;
+            try
+            {
+                options?.SetUp?.Invoke(list);
+                returnValue = method.Invoke(testObject, list);
+            }
+            catch (Exception ex)
+            {
+                invokeException = ex.InnerException;
+            }
+
+            var result = new CombinationResult
+            {
+                MemberPath = combination.MemberPath,
+                Exception = invokeException,
+                TestingValue = combination,
+                IsSuccess = options?.Validation?.Invoke(returnValue, invokeException),
+                ReturnValue = returnValue
+            };
+
+            _logger?.Log(result);
+            return result;
+        }
+
+        private IList<DefaultValueParameter> BuildDefaultObject(ParameterInfo[] parameterInfos, IList<DefaultValue> defaultValues)
         {
             var values = new List<DefaultValueParameter>();
             foreach (var parameterInfo in parameterInfos)
             {
                 var defaultValue = defaultValues.FirstOrDefault(d => d.Name.Equals(parameterInfo.Name, StringComparison.OrdinalIgnoreCase));
-                if (defaultValue != null)
-                {
-                    values.Add(new DefaultValueParameter(parameterInfo, defaultValue.Value));
-                }
-                else
-                {
-                    values.Add(new DefaultValueParameter(parameterInfo, Activator.CreateInstance(parameterInfo.ParameterType)));
-                }
+                values.Add(new DefaultValueParameter(parameterInfo, defaultValue?.Value));
             }
 
             return values;

@@ -1,6 +1,6 @@
 ﻿using Testura.FunkyValueTester.Extensions;
 
-namespace Testura.FunkyValueTester.Combinations.Loggers.Formatters
+namespace Testura.FunkyValueTester.Combinations.CombinationLoggers.Formatters
 {
     public class ReturnValueFormatter : ILogFormatter
     {

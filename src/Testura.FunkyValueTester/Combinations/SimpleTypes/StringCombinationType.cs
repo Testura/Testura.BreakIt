@@ -4,9 +4,9 @@ namespace Testura.FunkyValueTester.Combinations.SimpleTypes
 {
     public class StringCombinationType : ICombinationType
     {
-        public Combination[] GetCombinations(string name, Type type, object defaultValue)
+        public Combination[] GetCombinations(string memberPath, Type type, object defaultValue)
         {
-            return new[] { new Combination(name, string.Empty), new Combination(name, null) };
+            return new[] { new Combination(memberPath, string.Empty), new Combination(memberPath, null) };
         }
     }
 }

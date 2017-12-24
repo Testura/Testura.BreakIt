@@ -5,17 +5,17 @@ namespace Testura.FunkyValueTester.Combinations.ComplexTypes
 {
     internal class EnumCombinationType : IComplexType
     {
-        public Combination[] GetCombinations(string name, Type type, object defaultValue, IList<Func<string, Type, bool>> excludeList, ICombinationFactory combinationFactory)
+        public Combination[] GetCombinations(string memberPath, Type type, object defaultValue, IList<Func<string, Type, bool>> excludeList, ICombinationFactory combinationFactory)
         {
             if (type.IsEnum)
             {
-                return GetEnumCombinations(name, type, false);
+                return GetEnumCombinations(memberPath, type, false);
             }
 
             var underlying = Nullable.GetUnderlyingType(type);
             if (underlying != null && underlying.IsEnum)
             {
-                return GetEnumCombinations(name, underlying, true);
+                return GetEnumCombinations(memberPath, underlying, true);
             }
 
             return null;

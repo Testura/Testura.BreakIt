@@ -6,11 +6,11 @@ namespace Testura.FunkyValueTester.Combinations.ComplexTypes
 {
     internal class CustomClassCombinationType : IComplexType
     {
-        public Combination[] GetCombinations(string name, Type type, object defaultValue, IList<Func<string, Type, bool>> excludeList, ICombinationFactory combinationFactory)
+        public Combination[] GetCombinations(string memberPath, Type type, object defaultValue, IList<Func<string, Type, bool>> excludeList, ICombinationFactory combinationFactory)
         {
             if (IsBuiltInType(type))
             {
-                throw new Exception($"Failed to create combination for name = {name}, type = {type}");
+                throw new Exception($"Failed to create combination for memberPath = {memberPath}, type = {type}");
             }
 
             if (defaultValue == null)
@@ -23,7 +23,7 @@ namespace Testura.FunkyValueTester.Combinations.ComplexTypes
             foreach (var propertyInfo in properties)
             {
                 var clone = defaultValue.DeepClone();
-                var combinations = combinationFactory.GetCombinations($"{name}.{propertyInfo.Name}", propertyInfo.PropertyType, propertyInfo.GetValue(clone), excludeList);
+                var combinations = combinationFactory.GetCombinations($"{memberPath}.{propertyInfo.Name}", propertyInfo.PropertyType, propertyInfo.GetValue(clone), excludeList);
                 if (combinations != null)
                 {
                     foreach (var combination in combinations)

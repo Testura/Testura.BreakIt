@@ -8,7 +8,7 @@ namespace Testura.FunkyValueTester.Combinations.ComplexTypes
 {
     internal class CollectionCombinationType : IComplexType
     {
-        public Combination[] GetCombinations(string name, Type type, object defaultValue, IList<Func<string, Type, bool>> excludeList, ICombinationFactory combinationFactory)
+        public Combination[] GetCombinations(string memberPath, Type type, object defaultValue, IList<Func<string, Type, bool>> excludeList, ICombinationFactory combinationFactory)
         {
             if (!(defaultValue is IList))
             {
@@ -20,7 +20,7 @@ namespace Testura.FunkyValueTester.Combinations.ComplexTypes
             for (int n = 0; n < listClone.Count; n++)
             {
                 var item = listClone[n];
-                var combinations = combinationFactory.GetCombinations($"{name}.{type.ConvertToReadableType()}[{n}]", item.GetType(), item, excludeList);
+                var combinations = combinationFactory.GetCombinations($"{memberPath}.{type.ConvertToReadableType()}[{n}]", item.GetType(), item, excludeList);
                 foreach (var comb in combinations)
                 {
                     var newList = listClone.DeepClone();

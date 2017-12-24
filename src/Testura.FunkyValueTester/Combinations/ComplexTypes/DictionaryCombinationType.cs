@@ -8,7 +8,7 @@ namespace Testura.FunkyValueTester.Combinations.ComplexTypes
 {
     internal class DictionaryCombinationType : IComplexType
     {
-        public Combination[] GetCombinations(string name, Type type, object defaultValue, IList<Func<string, Type, bool>> excludeList, ICombinationFactory combinationFactory)
+        public Combination[] GetCombinations(string memberPath, Type type, object defaultValue, IList<Func<string, Type, bool>> excludeList, ICombinationFactory combinationFactory)
         {
             if (!type.IsDictionary() || defaultValue == null)
             {
@@ -19,7 +19,7 @@ namespace Testura.FunkyValueTester.Combinations.ComplexTypes
             var dictionaryClone = defaultValue.DeepClone() as IDictionary;
             foreach (var key in dictionaryClone.Keys)
             {
-                var combination = combinationFactory.GetCombinations($"{name}.{type.ConvertToReadableType()}[{key}]", dictionaryClone[key].GetType(), dictionaryClone[key], excludeList);
+                var combination = combinationFactory.GetCombinations($"{memberPath}.{type.ConvertToReadableType()}[{key}]", dictionaryClone[key].GetType(), dictionaryClone[key], excludeList);
                 foreach (var combination1 in combination)
                 {
                     var newDic = dictionaryClone.DeepClone();

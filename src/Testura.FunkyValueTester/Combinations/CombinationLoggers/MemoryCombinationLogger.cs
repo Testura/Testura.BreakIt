@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Testura.FunkyValueTester.Combinations.Loggers
+namespace Testura.FunkyValueTester.Combinations.CombinationLoggers
 {
     public class MemoryCombinationLogger : CombinationLogger
     {

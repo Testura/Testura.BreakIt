@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using NUnit.Framework;
-using Testura.FunkyValueTester.Combinations.Loggers;
+using Testura.FunkyValueTester.Combinations.CombinationLoggers;
 
 namespace Testura.FunkyValueTester.Tests
 {
@@ -75,8 +75,8 @@ namespace Testura.FunkyValueTester.Tests
             var apiTester = new Testura.FunkyValueTester.FunkyValueTester(memoryLogger);
             var result = apiTester.Execute(myApi, nameof(myApi.CallApiWithValidation), new List<object> { 1, "someName" }, options);
 
-            Assert.IsFalse(result[0].ResultOk);
-            Assert.IsTrue(result[1].ResultOk);
+            Assert.IsFalse(result[0].IsSuccess);
+            Assert.IsTrue(result[1].IsSuccess);
         }
 
         [Test]

@@ -4,9 +4,9 @@ namespace Testura.FunkyValueTester.Combinations.SimpleTypes
 {
     public class BoolCombinationType : ICombinationType
     {
-        public Combination[] GetCombinations(string name, Type type, object defaultValue)
+        public Combination[] GetCombinations(string memberPath, Type type, object defaultValue)
         {
-            return new[] { new Combination(name, false), new Combination(name, true) };
+            return new[] { new Combination(memberPath, false), new Combination(memberPath, true) };
         }
     }
 }

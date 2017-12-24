@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Testura.FunkyValueTester.Combinations.Loggers.Formatters;
+using Testura.FunkyValueTester.Combinations.CombinationLoggers.Formatters;
 
-namespace Testura.FunkyValueTester.Combinations.Loggers
+namespace Testura.FunkyValueTester.Combinations.CombinationLoggers
 {
     public abstract class CombinationLogger
     {

@@ -1,4 +1,4 @@
-﻿namespace Testura.FunkyValueTester.Combinations.Loggers.Formatters
+﻿namespace Testura.FunkyValueTester.Combinations.CombinationLoggers.Formatters
 {
     public class ExceptionValueFormatter : ILogFormatter
     {

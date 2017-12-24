@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace Testura.FunkyValueTester.Combinations.Loggers
+namespace Testura.FunkyValueTester.Combinations.CombinationLoggers
 {
     public class FileCombinationLogger : CombinationLogger
     {
