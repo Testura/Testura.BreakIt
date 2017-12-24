@@ -55,6 +55,8 @@
     <Compile Include="Combinations\ComplexTypes\CustomClassCombinationType.cs" />
     <Compile Include="Combinations\ComplexTypes\DictionaryCombinationType.cs" />
     <Compile Include="Combinations\ComplexTypes\EnumCombinationType.cs" />
+    <Compile Include="Combinations\SimpleTypes\NullableDecimalCombinationType.cs" />
+    <Compile Include="Combinations\SimpleTypes\DecimalCombinationType.cs" />
     <Compile Include="Combinations\SimpleTypes\FloatCombinationType.cs" />
     <Compile Include="Combinations\SimpleTypes\ICombinationType.cs" />
     <Compile Include="Combinations\SimpleTypes\DoubleCombinationType.cs" />

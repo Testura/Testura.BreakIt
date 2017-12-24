@@ -52,6 +52,12 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Combinations\SimpleTypes\FloatCombinationTypeTests.cs" />
+    <Compile Include="Combinations\SimpleTypes\DecimalCombinationTypeTests.cs" />
+    <Compile Include="Combinations\SimpleTypes\StringCombinationTypeTests.cs" />
+    <Compile Include="Combinations\SimpleTypes\IntCombinationTypeTests.cs" />
+    <Compile Include="Combinations\SimpleTypes\DoubleCombinationTypeTests.cs" />
+    <Compile Include="Combinations\SimpleTypes\BoolCombinationTypeTests.cs" />
     <Compile Include="FunkyApiTesterBase.cs" />
     <Compile Include="FunkyApiTesterSimpleTests.cs" />
     <Compile Include="Combinations\CombinationFactoryTests.cs" />

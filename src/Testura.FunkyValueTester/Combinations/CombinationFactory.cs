@@ -31,7 +31,9 @@ namespace Testura.FunkyValueTester.Combinations
                 [typeof(double?)] = new NullableDoubleCombinationType(),
                 [typeof(float?)] = new NullableFloatCombinationType(),
                 [typeof(bool?)] = new NullableBoolCombinationType(),
-                [typeof(bool)] = new BoolCombinationType()
+                [typeof(bool)] = new BoolCombinationType(),
+                [typeof(decimal)] = new DecimalCombinationType(),
+                [typeof(decimal?)] = new NullableDecimalCombinationType()
             };
         }
 
@@ -60,7 +62,7 @@ namespace Testura.FunkyValueTester.Combinations
 
             if (_combinations.ContainsKey(type))
             {
-                return _combinations[type].GetCombinations(name, type, defaultValue);
+                return _combinations[type].GetCombinations(name);
             }
 
             foreach (var complexCombination in _complexCombinations)
