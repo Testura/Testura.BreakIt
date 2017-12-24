@@ -7,7 +7,7 @@ namespace Testura.FunkyValueTester.Tests.Combinations.SimpleTypes
     public class DoubleCombinationTypeTests
     {
         [Test]
-        public void GetCombination_WhenGetCobinationForDouble_ShouldGetCorrectCombinationBack()
+        public void DoubleCombinationType_WhenGetCombinationForDouble_ShouldGetCorrectCombinationBack()
         {
             var combinationType = new DoubleCombinationType();
             var combinations = combinationType.GetCombinations("test");
@@ -23,7 +23,7 @@ namespace Testura.FunkyValueTester.Tests.Combinations.SimpleTypes
         }
 
         [Test]
-        public void GetCombination_WhenGetCobinationForNullabeDouble_ShouldGetCorrectCombinationBack()
+        public void DoubleCombinationType_WhenGetCombinationForNullabeDouble_ShouldGetCorrectCombinationBack()
         {
             var combinationType = new NullableDoubleCombinationType();
             var combinations = combinationType.GetCombinations("test");

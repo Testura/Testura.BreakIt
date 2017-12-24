@@ -7,7 +7,7 @@ namespace Testura.FunkyValueTester.Tests.Combinations.SimpleTypes
     public class FloatCombinationTypeTests
     {
         [Test]
-        public void GetCombination_WhenGetCobinationForFloat_ShouldGetCorrectCombinationBack()
+        public void FloatCombinationType_WhenGetCombinationForFloat_ShouldGetCorrectCombinationBack()
         {
             var combinationType = new FloatCombinationType();
             var combinations = combinationType.GetCombinations("test");
@@ -23,7 +23,7 @@ namespace Testura.FunkyValueTester.Tests.Combinations.SimpleTypes
         }
 
         [Test]
-        public void GetCombination_WhenGetCobinationForNullabeFloat_ShouldGetCorrectCombinationBack()
+        public void FloatCombinationType_WhenGetCombinationForNullabeFloat_ShouldGetCorrectCombinationBack()
         {
             var combinationType = new NullableFloatCombinationType();
             var combinations = combinationType.GetCombinations("test");

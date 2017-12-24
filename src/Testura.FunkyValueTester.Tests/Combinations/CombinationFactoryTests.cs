@@ -17,7 +17,7 @@ namespace Testura.FunkyValueTester.Tests.Combinations
         }
 
         [Test]
-        public void GetCombination_WhenGetCombinationForString_ShouldReturnCorrectCombinations()
+        public void CombinationFactory_WhenGetCombinationForSimpleType_ShouldReturnCombinations()
         {
             var combinations = _combinationFactory.GetCombinations("test", typeof(string), "s");
             Assert.AreEqual(2, combinations.Length);
@@ -26,11 +26,19 @@ namespace Testura.FunkyValueTester.Tests.Combinations
         }
 
         [Test]
-        public void GetCombination_WhenGetCombinationForTypeThatsInExcludeList_ShouldReturnEmptyArray()
+        public void CombinationFactory_WhenGetCombinationForTypeThatsInExcludeList_ShouldReturnEmptyArray()
         {
             var combinationFactory = new CombinationFactory();
             var combinations = combinationFactory.GetCombinations("test", typeof(string), "s", new List<Func<string, Type, bool>> { (s, type) => type == typeof(string) });
             Assert.AreEqual(0, combinations.Length);
+        }
+
+        [Test]
+        public void CombinationFactory_WhenGetCombinationForComplexType_ShouldReturnCombination()
+        {
+            var combinationFactory = new CombinationFactory();
+            var combinations = combinationFactory.GetCombinations("test", typeof(List<string>), new List<string> { "hej "});
+            Assert.AreEqual(2, combinations.Length);
         }
     }
 }

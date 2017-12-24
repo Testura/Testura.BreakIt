@@ -7,7 +7,7 @@ namespace Testura.FunkyValueTester.Tests.Combinations.SimpleTypes
     public class BoolCombinationTypeTests
     {
         [Test]
-        public void GetCombination_WhenGetCobinationForBool_ShouldGetCorrectCombinationBack()
+        public void BoolCombinationType_WhenGetCombinationForBool_ShouldGetCorrectCombinationBack()
         {
             var combinationType = new BoolCombinationType();
             var combinations = combinationType.GetCombinations("test");
@@ -23,7 +23,7 @@ namespace Testura.FunkyValueTester.Tests.Combinations.SimpleTypes
         }
 
         [Test]
-        public void GetCombination_WhenGetCobinationForNullabeBool_ShouldGetCorrectCombinationBack()
+        public void BoolCombinationType_WhenGetCombinationForNullabeBool_ShouldGetCorrectCombinationBack()
         {
             var combinationType = new NullableBoolCombinationType();
             var combinations = combinationType.GetCombinations("test");

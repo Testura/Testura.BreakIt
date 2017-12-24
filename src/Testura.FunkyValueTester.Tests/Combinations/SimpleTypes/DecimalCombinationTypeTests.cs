@@ -8,7 +8,7 @@ namespace Testura.FunkyValueTester.Tests.Combinations.SimpleTypes
     public class DecimalCombinationTypeTests
     {
         [Test]
-        public void GetCombination_WhenGetCobinationForDecimal_ShouldGetCorrectCombinationBack()
+        public void DecimalCombinationType_WhenGetCombinationForDecimal_ShouldGetCorrectCombinationBack()
         {
             var combinationType = new DecimalCombinationType();
             var combinations = combinationType.GetCombinations("test");
@@ -24,7 +24,7 @@ namespace Testura.FunkyValueTester.Tests.Combinations.SimpleTypes
         }
 
         [Test]
-        public void GetCombination_WhenGetCobinationForNullabeDecimal_ShouldGetCorrectCombinationBack()
+        public void DecimalCombinationType_WhenGetCombinationForNullabeDecimal_ShouldGetCorrectCombinationBack()
         {
             var combinationType = new NullableDecimalCombinationType();
             var combinations = combinationType.GetCombinations("test");

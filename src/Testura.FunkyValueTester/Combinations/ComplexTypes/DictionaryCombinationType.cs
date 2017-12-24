@@ -19,7 +19,7 @@ namespace Testura.FunkyValueTester.Combinations.ComplexTypes
             var dictionaryClone = defaultValue.DeepClone() as IDictionary;
             foreach (var key in dictionaryClone.Keys)
             {
-                var combination = combinationFactory.GetCombinations($"{memberPath}.{type.ConvertToReadableType()}[{key}]", dictionaryClone[key].GetType(), dictionaryClone[key], excludeList);
+                var combination = combinationFactory.GetCombinations($"{memberPath}[{key}]", dictionaryClone[key].GetType(), dictionaryClone[key], excludeList);
                 foreach (var combination1 in combination)
                 {
                     var newDic = dictionaryClone.DeepClone();

@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using Force.DeepCloner;
-using Testura.FunkyValueTester.Extensions;
 
 namespace Testura.FunkyValueTester.Combinations.ComplexTypes
 {
@@ -20,7 +19,7 @@ namespace Testura.FunkyValueTester.Combinations.ComplexTypes
             for (int n = 0; n < listClone.Count; n++)
             {
                 var item = listClone[n];
-                var combinations = combinationFactory.GetCombinations($"{memberPath}.{type.ConvertToReadableType()}[{n}]", item.GetType(), item, excludeList);
+                var combinations = combinationFactory.GetCombinations($"{memberPath}[{n}]", item.GetType(), item, excludeList);
                 foreach (var comb in combinations)
                 {
                     var newList = listClone.DeepClone();

@@ -52,6 +52,9 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Combinations\ComplexTypes\CollectionCombinationTypeTests.cs" />
+    <Compile Include="Combinations\ComplexTypes\DictionaryCombinationTypeTests.cs" />
+    <Compile Include="Combinations\ComplexTypes\EnumCombinationTypeTests.cs" />
     <Compile Include="Combinations\SimpleTypes\FloatCombinationTypeTests.cs" />
     <Compile Include="Combinations\SimpleTypes\DecimalCombinationTypeTests.cs" />
     <Compile Include="Combinations\SimpleTypes\StringCombinationTypeTests.cs" />

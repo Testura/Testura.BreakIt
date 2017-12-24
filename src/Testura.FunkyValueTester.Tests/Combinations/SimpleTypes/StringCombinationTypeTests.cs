@@ -7,7 +7,7 @@ namespace Testura.FunkyValueTester.Tests.Combinations.SimpleTypes
     public class StringCombinationTypeTests
     {
         [Test]
-        public void GetCombination_WhenGetCobinationForString_ShouldGetCorrectCombinationBack()
+        public void StringCombinationType_WhenGetCombinationForString_ShouldGetCorrectCombinationBack()
         {
             var combinationType = new StringCombinationType();
             var combinations = combinationType.GetCombinations("test");
