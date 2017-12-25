@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{BF2B112A-19AB-45D8-AC8F-6B5AB18A81EF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Testura.BreakIt</RootNamespace>
+    <AssemblyName>Testura.BreakIt</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>..\..\settings\Testura.ruleset</CodeAnalysisRuleSet>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <CodeAnalysisRuleSet>..\..\settings\Testura.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DeepCloner, Version=0.10.0.0, Culture=neutral, PublicKeyToken=dc0b95cf99bf4e99, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\DeepCloner.0.10.2\lib\net40\DeepCloner.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Combinations\Combination.cs" />
+    <Compile Include="Combinations\CombinationFactory.cs" />
+    <Compile Include="Combinations\CombinationResult.cs" />
+    <Compile Include="Combinations\ComplexTypes\CollectionCombinationType.cs" />
+    <Compile Include="Combinations\ComplexTypes\IComplexType.cs" />
+    <Compile Include="Combinations\ComplexTypes\CustomClassCombinationType.cs" />
+    <Compile Include="Combinations\ComplexTypes\DictionaryCombinationType.cs" />
+    <Compile Include="Combinations\ComplexTypes\EnumCombinationType.cs" />
+    <Compile Include="Combinations\SimpleTypes\NullableDecimalCombinationType.cs" />
+    <Compile Include="Combinations\SimpleTypes\DecimalCombinationType.cs" />
+    <Compile Include="Combinations\SimpleTypes\FloatCombinationType.cs" />
+    <Compile Include="Combinations\SimpleTypes\ICombinationType.cs" />
+    <Compile Include="Combinations\SimpleTypes\DoubleCombinationType.cs" />
+    <Compile Include="Combinations\SimpleTypes\BoolCombinationType.cs" />
+    <Compile Include="Combinations\SimpleTypes\NullableFloatCombinationType.cs" />
+    <Compile Include="Combinations\SimpleTypes\NullableDoubleCombinationType.cs" />
+    <Compile Include="Combinations\SimpleTypes\NullableBoolCombinationType.cs" />
+    <Compile Include="Combinations\SimpleTypes\NullableIntCombinationType.cs" />
+    <Compile Include="Combinations\SimpleTypes\IntCombinationType.cs" />
+    <Compile Include="Combinations\SimpleTypes\StringCombinationType.cs" />
+    <Compile Include="TesterOptions.cs" />
+    <Compile Include="Combinations\CombinationLoggers\CombinationLogger.cs" />
+    <Compile Include="Combinations\ICombinationFactory.cs" />
+    <Compile Include="Combinations\CombinationLoggers\ConsoleCombinationLogger.cs" />
+    <Compile Include="Combinations\CombinationLoggers\FileCombinationLogger.cs" />
+    <Compile Include="Combinations\CombinationLoggers\Formatters\ExceptionValueFormatter.cs" />
+    <Compile Include="Combinations\CombinationLoggers\Formatters\ILogFormatter.cs" />
+    <Compile Include="Combinations\CombinationLoggers\Formatters\ReturnValueFormatter.cs" />
+    <Compile Include="Combinations\CombinationLoggers\Formatters\TestValueFormatter.cs" />
+    <Compile Include="Combinations\CombinationLoggers\Formatters\ValidationFormatter.cs" />
+    <Compile Include="Combinations\CombinationLoggers\MemoryCombinationLogger.cs" />
+    <Compile Include="DefaultValues\DefaultValue.cs" />
+    <Compile Include="DefaultValues\DefaultValueParameter.cs" />
+    <Compile Include="Extensions\ObjectExtensions.cs" />
+    <Compile Include="Extensions\TypeExtensions.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="BreakIt.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
+    <Analyzer Include="..\..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
