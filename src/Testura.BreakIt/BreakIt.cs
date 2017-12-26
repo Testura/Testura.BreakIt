@@ -2,35 +2,35 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Testura.BreakIt.Combinations;
-using Testura.BreakIt.Combinations.CombinationLoggers;
 using Testura.BreakIt.DefaultValues;
+using Testura.BreakIt.TestValues;
+using Testura.BreakIt.TestValues.TestValueLoggers;
 
 namespace Testura.BreakIt
 {
     public class BreakIt
     {
-        private readonly CombinationLogger _logger;
-        private readonly ICombinationFactory _combinationFactory;
+        private readonly TestValueLogger _logger;
+        private readonly ITestValueFactory _combinationFactory;
 
         public BreakIt()
         {
-            _combinationFactory = new CombinationFactory();
+            _combinationFactory = new TestValueFactory();
         }
 
-        public BreakIt(CombinationLogger combinationLogger = null, ICombinationFactory combinationFactory = null)
+        public BreakIt(TestValueLogger combinationLogger = null, ITestValueFactory combinationFactory = null)
             : this()
         {
             _logger = combinationLogger;
-            _combinationFactory = combinationFactory ?? new CombinationFactory();
+            _combinationFactory = combinationFactory ?? new TestValueFactory();
         }
 
-        public IList<CombinationResult> Execute(object testObject, string methodName, IList<object> defaultValues, TesterOptions options = null)
+        public IList<TestValueResult> Execute(object testObject, string methodName, IList<object> defaultValues, TesterOptions options = null)
         {
             return Execute(testObject, testObject.GetType().GetMethod(methodName), defaultValues, options);
         }
 
-        public IList<CombinationResult> Execute(object testObject, MethodInfo method, IList<object> defaultValues, TesterOptions options = null)
+        public IList<TestValueResult> Execute(object testObject, MethodInfo method, IList<object> defaultValues, TesterOptions options = null)
         {
             var paramenters = method.GetParameters();
             if (defaultValues.Count != paramenters.Length)
@@ -42,7 +42,7 @@ namespace Testura.BreakIt
                 (parameter, index) => new DefaultValue(parameter.Name, defaultValues[index])).ToList();
             var defaultObjectValues = BuildDefaultObject(method.GetParameters(), createdDefaultValues);
 
-            var results = new List<CombinationResult>();
+            var results = new List<TestValueResult>();
             for (int i = 0; i < defaultObjectValues.Count; i++)
             {
                 results.AddRange(TestCombinations(testObject, method, defaultObjectValues, i, options));
@@ -51,11 +51,11 @@ namespace Testura.BreakIt
             return results;
         }
 
-        private IEnumerable<CombinationResult> TestCombinations(object testObject, MethodInfo method, IList<DefaultValueParameter> values, int currentIndex, TesterOptions options)
+        private IEnumerable<TestValueResult> TestCombinations(object testObject, MethodInfo method, IList<DefaultValueParameter> values, int currentIndex, TesterOptions options)
         {
-            var results = new List<CombinationResult>();
+            var results = new List<TestValueResult>();
             var type = values[currentIndex].ParameterInfo.ParameterType;
-            var combinations = _combinationFactory.GetCombinations(values[currentIndex].ParameterInfo.Name, type, values[currentIndex].DefaultValue, options?.ExcludeList);
+            var combinations = _combinationFactory.GetTestValues(values[currentIndex].ParameterInfo.Name, type, values[currentIndex].DefaultValue, options?.ExcludeList);
             var list = new object[values.Count];
             values.Select(v => v.DefaultValue).ToList().CopyTo(list);
             foreach (var combination in combinations)
@@ -66,9 +66,9 @@ namespace Testura.BreakIt
             return results;
         }
 
-        private CombinationResult InvokeMethood(object testObject, MethodInfo method, int currentIndex, TesterOptions options, object[] list, Combination combination)
+        private TestValueResult InvokeMethood(object testObject, MethodInfo method, int currentIndex, TesterOptions options, object[] list, TestValue testValue)
         {
-            list[currentIndex] = combination.Value;
+            list[currentIndex] = testValue.Value;
             Exception invokeException = null;
             object returnValue = null;
             try
@@ -81,11 +81,11 @@ namespace Testura.BreakIt
                 invokeException = ex.InnerException;
             }
 
-            var result = new CombinationResult
+            var result = new TestValueResult
             {
-                MemberPath = combination.MemberPath,
+                MemberPath = testValue.MemberPath,
                 Exception = invokeException,
-                TestingValue = combination,
+                TestingValue = testValue,
                 IsSuccess = options?.Validation?.Invoke(returnValue, invokeException),
                 ReturnValue = returnValue
             };

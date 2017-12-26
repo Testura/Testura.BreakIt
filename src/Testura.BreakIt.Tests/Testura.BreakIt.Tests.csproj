@@ -52,18 +52,12 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Combinations\ComplexTypes\CollectionCombinationTypeTests.cs" />
-    <Compile Include="Combinations\ComplexTypes\DictionaryCombinationTypeTests.cs" />
-    <Compile Include="Combinations\ComplexTypes\EnumCombinationTypeTests.cs" />
-    <Compile Include="Combinations\SimpleTypes\FloatCombinationTypeTests.cs" />
-    <Compile Include="Combinations\SimpleTypes\DecimalCombinationTypeTests.cs" />
-    <Compile Include="Combinations\SimpleTypes\StringCombinationTypeTests.cs" />
-    <Compile Include="Combinations\SimpleTypes\IntCombinationTypeTests.cs" />
-    <Compile Include="Combinations\SimpleTypes\DoubleCombinationTypeTests.cs" />
-    <Compile Include="Combinations\SimpleTypes\BoolCombinationTypeTests.cs" />
+    <Compile Include="TestValues\ComplexTypes\CollectionTestTypeTests.cs" />
+    <Compile Include="TestValues\ComplexTypes\DictionaryTestTypeTests.cs" />
+    <Compile Include="TestValues\ComplexTypes\EnumTestTypeTests.cs" />
     <Compile Include="FunkyApiTesterBase.cs" />
     <Compile Include="FunkyApiTesterSimpleTests.cs" />
-    <Compile Include="Combinations\CombinationFactoryTests.cs" />
+    <Compile Include="TestValues\TestValueFactoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

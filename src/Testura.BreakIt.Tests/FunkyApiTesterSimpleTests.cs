@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using NUnit.Framework;
-using Testura.BreakIt.Combinations.CombinationLoggers;
+using Testura.BreakIt.TestValues.TestValueLoggers;
 
 namespace Testura.BreakIt.Tests
 {
@@ -68,7 +68,7 @@ namespace Testura.BreakIt.Tests
         public void Execute_WhenExecuteApiTesterWithMethodThatReturnValue_ShouldBeAbleToValidateAndHaveCorrectValueInResult()
         {
             var myApi = new MyApi();
-            var memoryLogger = new MemoryCombinationLogger();
+            var memoryLogger = new MemoryTestValueLogger();
             var options = new TesterOptions();
             options.Validation = ((o1, exception) => (int)o1 == 1);
 
@@ -83,7 +83,7 @@ namespace Testura.BreakIt.Tests
         public void Execute_WhenExecuteApiTesterWithMethodThatReturnValue_ShouldBeAbleToValidateAndHaveCorrectValueInLog()
         {
             var myApi = new MyApi();
-            var memoryLogger = new MemoryCombinationLogger();
+            var memoryLogger = new MemoryTestValueLogger();
             var options = new TesterOptions();
             options.Validation = ((o1, exception) => (int)o1 == 1);
 
@@ -97,7 +97,7 @@ namespace Testura.BreakIt.Tests
         public void Execute_WhenExecuteApiTesterWithMethodThatShowException_ShouldSeeExceptionInLog()
         {
             var myApi = new MyApi();
-            var memoryLogger = new MemoryCombinationLogger();
+            var memoryLogger = new MemoryTestValueLogger();
             var apiTester = new BreakIt(memoryLogger);
             apiTester.Execute(myApi, nameof(myApi.CallApiWithException), new List<object> { 1, "someName" });
 
@@ -108,7 +108,7 @@ namespace Testura.BreakIt.Tests
         public void Execute_WhenExecuteApiTesterWithMethodThatShowException_ShouldSeeExceptionInResult()
         {
             var myApi = new MyApi();
-            var memoryLogger = new MemoryCombinationLogger();
+            var memoryLogger = new MemoryTestValueLogger();
             var apiTester = new BreakIt(memoryLogger);
             var result = apiTester.Execute(myApi, nameof(myApi.CallApiWithException), new List<object> { 1, "someName" });
 

@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using NUnit.Framework;
-using Testura.BreakIt.Combinations.CombinationLoggers;
+using Testura.BreakIt.TestValues.TestValueLoggers;
 
 namespace Testura.BreakIt.Tests
 {
     [TestFixture]
     public abstract class FunkyApiTesterBase
     {
-        protected MemoryCombinationLogger MemoryCombinationLogger { get; private set; }
+        protected MemoryTestValueLogger MemoryCombinationLogger { get; private set; }
 
         protected BreakIt FunkyApiTester { get; private set; }
 
@@ -16,7 +16,7 @@ namespace Testura.BreakIt.Tests
         [SetUp]
         public void SetUp()
         {
-            MemoryCombinationLogger = new MemoryCombinationLogger();
+            MemoryCombinationLogger = new MemoryTestValueLogger();
             FunkyApiTester = new BreakIt(combinationLogger: MemoryCombinationLogger);
         }
     }
