@@ -86,7 +86,7 @@ namespace Testura.BreakIt
                 MemberPath = testValue.MemberPath,
                 Exception = invokeException,
                 TestingValue = testValue,
-                IsSuccess = options?.Validation?.Invoke(returnValue, invokeException),
+                IsSuccess = options?.Validation?.Invoke(testValue, returnValue, invokeException),
                 ReturnValue = returnValue
             };
 

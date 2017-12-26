@@ -5,7 +5,7 @@ using Testura.BreakIt.TestValues.TestValueLoggers;
 namespace Testura.BreakIt.Tests
 {
     [TestFixture]
-    public abstract class FunkyApiTesterBase
+    public abstract class BreakItBase
     {
         protected MemoryTestValueLogger MemoryCombinationLogger { get; private set; }
 

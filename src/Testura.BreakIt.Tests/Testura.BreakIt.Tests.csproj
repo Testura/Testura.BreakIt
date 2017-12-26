@@ -52,11 +52,13 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Help\MyApi.cs" />
+    <Compile Include="Help\SomeComplexType.cs" />
     <Compile Include="TestValues\ComplexTypes\CollectionTestTypeTests.cs" />
     <Compile Include="TestValues\ComplexTypes\DictionaryTestTypeTests.cs" />
     <Compile Include="TestValues\ComplexTypes\EnumTestTypeTests.cs" />
-    <Compile Include="FunkyApiTesterBase.cs" />
-    <Compile Include="FunkyApiTesterSimpleTests.cs" />
+    <Compile Include="BreakItBase.cs" />
+    <Compile Include="BreakItTests.cs" />
     <Compile Include="TestValues\TestValueFactoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

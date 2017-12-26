@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Testura.BreakIt.TestValues;
 
 namespace Testura.BreakIt
 {
@@ -10,7 +11,7 @@ namespace Testura.BreakIt
             ExcludeList = new List<Func<string, Type, bool>>();
         }
 
-        public Func<object, Exception, bool> Validation { get; set; }
+        public Func<TestValue, object, Exception, bool> Validation { get; set; }
 
         public Action<object[]> SetUp { get; set; }
 

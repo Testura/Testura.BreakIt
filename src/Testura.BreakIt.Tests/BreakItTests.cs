@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using NUnit.Framework;
+using Testura.BreakIt.Tests.Help;
 using Testura.BreakIt.TestValues.TestValueLoggers;
 
 namespace Testura.BreakIt.Tests
 {
     [TestFixture]
-    public class FunkyApiTesterSimpleTests : FunkyApiTesterBase
+    public class BreakItTests : BreakItBase
     {
-        private enum SomeEnum { Hello, bu };
-
         [Test]
         public void Execute_WhenExecuteApiTesterWithSimpleMethod_ShouldGetCorrectNumberOfResults()
         {
@@ -23,7 +22,7 @@ namespace Testura.BreakIt.Tests
         public void Execute_WhenExecuteApiTesterWithSimpleMethodWithNullable_ShouldGetCorrectNumberOfResults()
         {
             var myApi = new MyApi();
-            var results = FunkyApiTester.Execute(myApi, nameof(myApi.CallApiEnums), new List<object> { SomeEnum.Hello, SomeEnum.bu });
+            var results = FunkyApiTester.Execute(myApi, nameof(myApi.CallApiEnums), new List<object> { MyApi.SomeEnum.Hello, MyApi.SomeEnum.bu });
 
             Assert.AreEqual(5, results.Count);
         }
@@ -70,7 +69,7 @@ namespace Testura.BreakIt.Tests
             var myApi = new MyApi();
             var memoryLogger = new MemoryTestValueLogger();
             var options = new TesterOptions();
-            options.Validation = ((o1, exception) => (int)o1 == 1);
+            options.Validation = ((testValue, o1, exception) => (int)o1 == 1);
 
             var apiTester = new BreakIt(memoryLogger);
             var result = apiTester.Execute(myApi, nameof(myApi.CallApiWithValidation), new List<object> { 1, "someName" }, options);
@@ -85,7 +84,7 @@ namespace Testura.BreakIt.Tests
             var myApi = new MyApi();
             var memoryLogger = new MemoryTestValueLogger();
             var options = new TesterOptions();
-            options.Validation = ((o1, exception) => (int)o1 == 1);
+            options.Validation = (testValue, o1, exception) => (int)o1 == 1;
 
             var apiTester = new BreakIt(memoryLogger);
             apiTester.Execute(myApi, nameof(myApi.CallApiWithValidation), new List<object> { 1, "someName" }, options);
@@ -114,45 +113,6 @@ namespace Testura.BreakIt.Tests
 
             Assert.IsNotNull(result[0].Exception);
             Assert.AreEqual("Something is wrong", result[0].Exception.Message);
-        }
-
-        private class MyApi
-        {
-            public void CallApi(int id, string name) { }
-
-            public void CallApiEnums(SomeEnum some, SomeEnum? someNullable) { }
-
-            public void CallApiList(List<string> hej) { }
-
-            public void CallApiListComplex(List<SomeComplexType> list) { }
-
-            public void CallApiDictionaryComplex(Dictionary<string, SomeComplexType> list) { }
-
-            public int CallApiWithValidation(int id, string name)
-            {
-                if (id == int.MaxValue)
-                {
-                    return -1;
-                }
-
-                return 1;
-            }
-
-            public int CallApiWithException(int id, string name)
-            {
-                if (id == int.MaxValue)
-                {
-                    throw new Exception("Something is wrong");
-                }
-
-                return 1;
-            }
-        }
-
-        private class SomeComplexType
-        {
-            public string Hej { get; set; }
-            public int Number { get; set; }
         }
     }
 }
