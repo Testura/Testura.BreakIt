@@ -6,11 +6,17 @@ using Testura.BreakIt.TestValues.SimpleTypes;
 
 namespace Testura.BreakIt.TestValues
 {
+    /// <summary>
+    /// a
+    /// </summary>
     public class TestValueFactory : ITestValueFactory
     {
         private readonly IList<IComplexTestType> _complexCombinations;
         private readonly IDictionary<Type, ISimpleTestType> _combinations;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TestValueFactory"/> class.
+        /// </summary>
         public TestValueFactory()
         {
             _complexCombinations = new List<IComplexTestType>
@@ -33,14 +39,20 @@ namespace Testura.BreakIt.TestValues
                 [typeof(bool?)] = new NullableBoolTestType(),
                 [typeof(bool)] = new BoolTestType(),
                 [typeof(decimal)] = new DecimalTestType(),
-                [typeof(decimal?)] = new NullableDecimalTestType()
+                [typeof(decimal?)] = new NullableDecimalTestType(),
+                [typeof(short)] = new ShortTestType(),
+                [typeof(short?)] = new NullableShortTestType(),
             };
         }
 
-        public TestValueFactory(IDictionary<Type, ISimpleTestType> addCombinations)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TestValueFactory"/> class.
+        /// </summary>
+        /// <param name="addTestTypes">Append the default list with new test types. Will override default list types at conflict.</param>
+        public TestValueFactory(IDictionary<Type, ISimpleTestType> addTestTypes)
             : this()
         {
-            foreach (var addCombination in addCombinations)
+            foreach (var addCombination in addTestTypes)
             {
                 if (_combinations.ContainsKey(addCombination.Key))
                 {
@@ -53,6 +65,7 @@ namespace Testura.BreakIt.TestValues
             }
         }
 
+        /// <inheritdoc />
         public TestValue[] GetTestValues(string name, Type type, object defaultValue, IList<Func<string, Type, bool>> excludeList = null)
         {
             if (excludeList != null && excludeList.Any(e => e(name, type)))

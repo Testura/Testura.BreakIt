@@ -29,12 +29,12 @@ namespace Testura.BreakIt
         /// Initializes a new instance of the <see cref="BreakIt"/> class.
         /// </summary>
         /// <param name="testValueLogger">Optional server to log each test value.</param>
-        /// <param name="combinationFactory">Optional factory to create test value combinations.</param>
-        public BreakIt(TestValueLogger testValueLogger = null, ITestValueFactory combinationFactory = null)
+        /// <param name="testValueFactory">Optional factory to create test value combinations.</param>
+        public BreakIt(TestValueLogger testValueLogger = null, ITestValueFactory testValueFactory = null)
             : this()
         {
             _logger = testValueLogger;
-            _combinationFactory = combinationFactory ?? new TestValueFactory();
+            _combinationFactory = testValueFactory ?? new TestValueFactory();
         }
 
         /// <summary>

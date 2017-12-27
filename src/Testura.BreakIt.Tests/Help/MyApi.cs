@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Testura.BreakIt.Tests.Help
 {
     public class MyApi
     {
-        public enum SomeEnum { Hello, bu };
+        public enum SomeEnum { FirstValue, SecondValue };
 
         public void CallApi(int id, string name) { }
 
@@ -19,6 +16,7 @@ namespace Testura.BreakIt.Tests.Help
         public void CallApiListComplex(List<SomeComplexType> list) { }
 
         public void CallApiDictionaryComplex(Dictionary<string, SomeComplexType> list) { }
+
 
         public int CallApiWithValidation(int id, string name)
         {

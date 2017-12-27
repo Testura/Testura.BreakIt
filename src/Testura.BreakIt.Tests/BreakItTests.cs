@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using NUnit.Framework;
 using Testura.BreakIt.Tests.Help;
+using Testura.BreakIt.TestValues;
+using Testura.BreakIt.TestValues.SimpleTypes;
 using Testura.BreakIt.TestValues.TestValueLoggers;
 
 namespace Testura.BreakIt.Tests
@@ -13,7 +15,7 @@ namespace Testura.BreakIt.Tests
         public void Execute_WhenExecuteApiTesterWithSimpleMethod_ShouldGetCorrectNumberOfResults()
         {
             var myApi = new MyApi();
-            var results = FunkyApiTester.Execute(myApi, nameof(myApi.CallApi), new List<object> { 1, "someName" });
+            var results = breakIt.Execute(myApi, nameof(myApi.CallApi), new List<object> { 1, "someName" });
 
             Assert.AreEqual(4, results.Count);
         }
@@ -22,7 +24,7 @@ namespace Testura.BreakIt.Tests
         public void Execute_WhenExecuteApiTesterWithSimpleMethodWithNullable_ShouldGetCorrectNumberOfResults()
         {
             var myApi = new MyApi();
-            var results = FunkyApiTester.Execute(myApi, nameof(myApi.CallApiEnums), new List<object> { MyApi.SomeEnum.Hello, MyApi.SomeEnum.bu });
+            var results = breakIt.Execute(myApi, nameof(myApi.CallApiEnums), new List<object> { MyApi.SomeEnum.FirstValue, MyApi.SomeEnum.SecondValue });
 
             Assert.AreEqual(5, results.Count);
         }
@@ -31,7 +33,7 @@ namespace Testura.BreakIt.Tests
         public void Execute_WhenExecuteApiTesterWithSimpleMethod_ShouldGetCorrectNumberOfLogLine()
         {
             var myApi = new MyApi();
-            FunkyApiTester.Execute(myApi, nameof(myApi.CallApi), new List<object> { 1, "someName" });
+            breakIt.Execute(myApi, nameof(myApi.CallApi), new List<object> { 1, "someName" });
 
             Assert.AreEqual(4, LogLines.Count);
         }
@@ -40,7 +42,7 @@ namespace Testura.BreakIt.Tests
         public void Execute_WhenExecuteApiTesterWithMethodWithList_ShouldGetCorrectNumberOfResults()
         {
             var myApi = new MyApi();
-            var result = FunkyApiTester.Execute(myApi, nameof(myApi.CallApiList), new List<object> { new List<string> { "Buu" } });
+            var result = breakIt.Execute(myApi, nameof(myApi.CallApiList), new List<object> { new List<string> { "Buu" } });
 
             Assert.AreEqual(2, result.Count);
         }
@@ -49,7 +51,7 @@ namespace Testura.BreakIt.Tests
         public void Execute_WhenExecuteApiTesterWithMethodWithListThatContainsComplexClass_ShouldGetCorrectNumberOfResults()
         {
             var myApi = new MyApi();
-            var result = FunkyApiTester.Execute(myApi, nameof(myApi.CallApiListComplex), new List<object> { new List<SomeComplexType> { new SomeComplexType { Hej = "test", Number = 1 } } });
+            var result = breakIt.Execute(myApi, nameof(myApi.CallApiListComplex), new List<object> { new List<SomeComplexType> { new SomeComplexType { Name = "test", Number = 1 } } });
 
             Assert.AreEqual(4, result.Count);
         }
@@ -58,7 +60,7 @@ namespace Testura.BreakIt.Tests
         public void Execute_WhenExecuteApiTesterWithMethodWithDictionaryThatContainsComplexClass_ShouldGetCorrectNumberOfResults()
         {
             var myApi = new MyApi();
-            var result = FunkyApiTester.Execute(myApi, nameof(myApi.CallApiDictionaryComplex), new List<object> { new Dictionary<string, SomeComplexType> { ["Bu"] = new SomeComplexType { Hej = "test", Number = 1 }, ["Tjo"] = new SomeComplexType { Hej = "test", Number = 1 } } });
+            var result = breakIt.Execute(myApi, nameof(myApi.CallApiDictionaryComplex), new List<object> { new Dictionary<string, SomeComplexType> { ["Bu"] = new SomeComplexType { Name = "test", Number = 1 }, ["Tjo"] = new SomeComplexType { Name = "test", Number = 1 } } });
 
             Assert.AreEqual(8, result.Count);
         }

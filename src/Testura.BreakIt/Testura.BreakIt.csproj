@@ -48,6 +48,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="TestValues\SimpleTypes\NullableShortTestType.cs" />
+    <Compile Include="TestValues\SimpleTypes\ShortTestType.cs" />
     <Compile Include="TestValues\TestValue.cs" />
     <Compile Include="TestValues\TestValueFactory.cs" />
     <Compile Include="TestValues\TestValueResult.cs" />

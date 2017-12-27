@@ -1,7 +1,11 @@
 ﻿namespace Testura.BreakIt.TestValues.TestValueLoggers.Formatters
 {
+    /// <summary>
+    /// Provides the functionallity to format the value part of a test value result.
+    /// </summary>
     public class TestValueFormatter : ILogFormatter
     {
+        /// <inheritdoc />
         public string GetFormat(TestValueResult result)
         {
             var combination = result.TestingValue;

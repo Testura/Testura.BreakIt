@@ -2,10 +2,14 @@
 
 namespace Testura.BreakIt.TestValues.TestValueLoggers.Formatters
 {
+    /// <summary>
+    /// Provides the functionallity to formatt the return part of a test value result.
+    /// </summary>
     public class ReturnValueFormatter : ILogFormatter
     {
         private const string Tag = "Return value =>";
 
+        /// <inheritdoc />
         public string GetFormat(TestValueResult result)
         {
             if (result.ReturnValue == null)

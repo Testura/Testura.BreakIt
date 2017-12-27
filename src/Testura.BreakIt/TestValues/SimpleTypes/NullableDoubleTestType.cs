@@ -1,6 +1,6 @@
 ﻿namespace Testura.BreakIt.TestValues.SimpleTypes
 {
-    public class NullableDoubleTestType : ISimpleTestType
+    internal class NullableDoubleTestType : ISimpleTestType
     {
         public TestValue[] GetTestValue(string memberPath)
         {

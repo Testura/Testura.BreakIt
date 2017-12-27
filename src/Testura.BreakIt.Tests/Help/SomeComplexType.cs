@@ -8,7 +8,7 @@ namespace Testura.BreakIt.Tests.Help
 {
     public class SomeComplexType
     {
-        public string Hej { get; set; }
+        public string Name { get; set; }
         public int Number { get; set; }
     }
 }

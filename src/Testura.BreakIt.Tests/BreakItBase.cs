@@ -9,7 +9,7 @@ namespace Testura.BreakIt.Tests
     {
         protected MemoryTestValueLogger MemoryCombinationLogger { get; private set; }
 
-        protected BreakIt FunkyApiTester { get; private set; }
+        protected BreakIt breakIt { get; private set; }
 
         protected List<string> LogLines => MemoryCombinationLogger.LogLines;
 
@@ -17,7 +17,7 @@ namespace Testura.BreakIt.Tests
         public void SetUp()
         {
             MemoryCombinationLogger = new MemoryTestValueLogger();
-            FunkyApiTester = new BreakIt(testValueLogger: MemoryCombinationLogger);
+            breakIt = new BreakIt(testValueLogger: MemoryCombinationLogger);
         }
     }
 }
