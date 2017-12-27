@@ -7,12 +7,12 @@ namespace Testura.BreakIt
     /// <summary>
     /// Optional testing options when executing a break it test.
     /// </summary>
-    public class TesterOptions
+    public class BreakItOptions
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="TesterOptions"/> class.
+        /// Initializes a new instance of the <see cref="BreakItOptions"/> class.
         /// </summary>
-        public TesterOptions()
+        public BreakItOptions()
         {
             ExcludeList = new List<Func<string, Type, bool>>();
         }

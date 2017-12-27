@@ -70,10 +70,10 @@ namespace Testura.BreakIt.Tests
         {
             var myApi = new MyApi();
             var memoryLogger = new MemoryTestValueLogger();
-            var options = new TesterOptions();
+            var options = new BreakItOptions();
             options.Validation = ((testValue, o1, exception) => (int)o1 == 1);
 
-            var apiTester = new BreakItTester(memoryLogger);
+            var apiTester = new BreakIt(memoryLogger);
             var result = apiTester.Execute(myApi, nameof(myApi.CallApiWithValidation), new List<object> { 1, "someName" }, options);
 
             Assert.IsFalse(result[0].IsSuccess);
@@ -85,10 +85,10 @@ namespace Testura.BreakIt.Tests
         {
             var myApi = new MyApi();
             var memoryLogger = new MemoryTestValueLogger();
-            var options = new TesterOptions();
+            var options = new BreakItOptions();
             options.Validation = (testValue, o1, exception) => (int)o1 == 1;
 
-            var apiTester = new BreakItTester(memoryLogger);
+            var apiTester = new BreakIt(memoryLogger);
             apiTester.Execute(myApi, nameof(myApi.CallApiWithValidation), new List<object> { 1, "someName" }, options);
 
             StringAssert.Contains("NOT OK", memoryLogger.LogLines[0]);
@@ -99,7 +99,7 @@ namespace Testura.BreakIt.Tests
         {
             var myApi = new MyApi();
             var memoryLogger = new MemoryTestValueLogger();
-            var apiTester = new BreakItTester(memoryLogger);
+            var apiTester = new BreakIt(memoryLogger);
             apiTester.Execute(myApi, nameof(myApi.CallApiWithException), new List<object> { 1, "someName" });
 
             StringAssert.Contains("Something is wrong", memoryLogger.LogLines[0]);
@@ -110,7 +110,7 @@ namespace Testura.BreakIt.Tests
         {
             var myApi = new MyApi();
             var memoryLogger = new MemoryTestValueLogger();
-            var apiTester = new BreakItTester(memoryLogger);
+            var apiTester = new BreakIt(memoryLogger);
             var result = apiTester.Execute(myApi, nameof(myApi.CallApiWithException), new List<object> { 1, "someName" });
 
             Assert.IsNotNull(result[0].Exception);

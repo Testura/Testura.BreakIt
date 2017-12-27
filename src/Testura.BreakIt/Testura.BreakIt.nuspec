@@ -7,15 +7,11 @@
     <authors>Mille Boström</authors>
     <owners>Mille Boström</owners>
     <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
-    <projectUrl>https://github.com/Testura/Testura.Android</projectUrl>
+    <projectUrl>https://github.com/Testura/Testura.BreakIt</projectUrl>
     <iconUrl>http://testura.net/Content/Images/logo128-new.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>BreakIt is a simple framework to test your method or api by sending different test values. The goal is to "break" the method or api by sending extreme values, boundary or funky data.</description>
-    <releaseNotes>Release 1.0.0
-	 - Initial release of the framework.
-	 - Supports "breaking" of methods.
-	 - Supports: int, double, decimal, float, short, string, enum, IList and Dictionary (IDictionary).
-	 - Three different loggers (file, console and memory).
+    <releaseNotes>Release 1.0.0 - Initial release of the framework. 
 	</releaseNotes>
     <copyright>Copyright 2016</copyright>
     <tags>API Test Automation</tags>

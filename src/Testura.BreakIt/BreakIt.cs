@@ -12,25 +12,25 @@ namespace Testura.BreakIt
     /// Provides the functionallity to test multiple combinations of test values against
     /// a method/api.
     /// </summary>
-    public class BreakItTester
+    public class BreakIt
     {
         private readonly TestValueLogger _logger;
         private readonly ITestValueFactory _combinationFactory;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BreakItTester"/> class.
+        /// Initializes a new instance of the <see cref="BreakIt"/> class.
         /// </summary>
-        public BreakItTester()
+        public BreakIt()
         {
             _combinationFactory = new TestValueFactory();
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BreakItTester"/> class.
+        /// Initializes a new instance of the <see cref="BreakIt"/> class.
         /// </summary>
         /// <param name="testValueLogger">Optional server to log each test value.</param>
         /// <param name="testValueFactory">Optional factory to create test value combinations.</param>
-        public BreakItTester(TestValueLogger testValueLogger = null, ITestValueFactory testValueFactory = null)
+        public BreakIt(TestValueLogger testValueLogger = null, ITestValueFactory testValueFactory = null)
             : this()
         {
             _logger = testValueLogger;
@@ -45,7 +45,7 @@ namespace Testura.BreakIt
         /// <param name="defaultValues">A list of default values/argument to the method. Important that they match the invoked methods parameter list.</param>
         /// <param name="options">Optional options.</param>
         /// <returns>A list with the result of all test values.</returns>
-        public IList<TestValueResult> Execute(object testObject, string methodName, IList<object> defaultValues, TesterOptions options = null)
+        public IList<TestValueResult> Execute(object testObject, string methodName, IList<object> defaultValues, BreakItOptions options = null)
         {
             return Execute(testObject, testObject.GetType().GetMethod(methodName), defaultValues, options);
         }
@@ -58,7 +58,7 @@ namespace Testura.BreakIt
         /// <param name="defaultValues">A list of default values/argument to the method. Important that they match the invoked methods parameter list.</param>
         /// <param name="options">Optional options.</param>
         /// <returns>A list with the result of all test values.</returns>
-        public IList<TestValueResult> Execute(object testObject, MethodInfo method, IList<object> defaultValues, TesterOptions options = null)
+        public IList<TestValueResult> Execute(object testObject, MethodInfo method, IList<object> defaultValues, BreakItOptions options = null)
         {
             var paramenters = method.GetParameters();
             if (defaultValues.Count != paramenters.Length)
@@ -79,7 +79,7 @@ namespace Testura.BreakIt
             return results;
         }
 
-        private IEnumerable<TestValueResult> TestCombinations(object testObject, MethodInfo method, IList<DefaultValueParameter> values, int currentIndex, TesterOptions options)
+        private IEnumerable<TestValueResult> TestCombinations(object testObject, MethodInfo method, IList<DefaultValueParameter> values, int currentIndex, BreakItOptions options)
         {
             var results = new List<TestValueResult>();
             var type = values[currentIndex].ParameterInfo.ParameterType;
@@ -94,7 +94,7 @@ namespace Testura.BreakIt
             return results;
         }
 
-        private TestValueResult InvokeMethood(object testObject, MethodInfo method, int currentIndex, TesterOptions options, object[] list, TestValue testValue)
+        private TestValueResult InvokeMethood(object testObject, MethodInfo method, int currentIndex, BreakItOptions options, object[] list, TestValue testValue)
         {
             list[currentIndex] = testValue.Value;
             Exception invokeException = null;

@@ -70,7 +70,7 @@
     <Compile Include="TestValues\SimpleTypes\NullableIntTestType.cs" />
     <Compile Include="TestValues\SimpleTypes\IntTestType.cs" />
     <Compile Include="TestValues\SimpleTypes\StringTestType.cs" />
-    <Compile Include="TesterOptions.cs" />
+    <Compile Include="BreakItOptions.cs" />
     <Compile Include="TestValues\TestValueLoggers\TestValueLogger.cs" />
     <Compile Include="TestValues\ITestValueFactory.cs" />
     <Compile Include="TestValues\TestValueLoggers\ConsoleTestValueLogger.cs" />
@@ -86,7 +86,7 @@
     <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="BreakItTester.cs" />
+    <Compile Include="BreakIt.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
