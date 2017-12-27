@@ -1,6 +1,6 @@
 ![Testura Logo](http://testura.net/Content/Images/logo2.png)
 
-BreakIt is a simple framework to test your method or api by sending different test values. The goal is to "break" the method or api by sending extreme values, boundary or funky data.
+BreakIt is a simple framework to test your method or api by automatically sending different test values. The goal is to "break" the method or api by sending extreme values, boundary or funky data.
 
 Technically the framework will look at your method and parameters and map it to different test values that it use at execution.
 
