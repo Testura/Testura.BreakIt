@@ -20,11 +20,11 @@ Currently we support:
 
 # Install
 
-## NuGet [![NuGet Status](https://img.shields.io/nuget/v/Testura.Android.svg?style=flat)](https://www.nuget.org/packages/Testura.Android)
+## NuGet [![NuGet Status](https://img.shields.io/nuget/v/Testura.BreakIt.svg?style=flat)](https://www.nuget.org/packages/Testura.BreakIt)
 
-[https://www.nuget.org/packages/Testura.Android](https://www.nuget.org/packages/Testura.Android)
+[https://www.nuget.org/packages/Testura.BreakIt](https://www.nuget.org/packages/Testura.BreakIt)
     
-    PM> Install-Package Testura.Android
+    PM> Install-Package Testura.BreakIt
    
 
 ## Usage
