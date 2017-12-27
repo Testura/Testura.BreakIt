@@ -49,7 +49,7 @@ Execute the test:
 
 ```c#
 var myApi = new MyApi(); 
-var breakIt = new BreakIt();
+var breakIt = new BreakItTester();
 
 var result = breakIt.Execute(myApi, nameof(myApi.CallApi), new List<object> { 1, "testName });
 ```
@@ -87,7 +87,7 @@ Execute the test:
 
 ```c#
 var myApi = new MyApi(); 
-var breakIt = new BreakIt();
+var breakIt = new BreakItTester();
 
 var defaultValue = new SomeComplexType { Name = "Test", Number = 3 };
 var result breakIt.Execute(myApi, nameof(myApi.CallApiComplex), new List<object> { 1, new List<SomeComplexType> { defaultValue }, new Dictionary<string, SomeComplexType> { ["Key"] = defaultValue }, MyApi.SomeEnum.FirstValue });
@@ -126,7 +126,7 @@ private bool Validation(TestValue value, object returnValues, Exception exceptio
 ```
 
 ```c#
-var breakIt = new BreakIt();
+var breakIt = new BreakItTester();
 breakIt.Execute(someApi, nameof(someApi.SomeMethod), new List<object> { .. }, new TesterOptions { Validation = Validation });
 ```
 
@@ -143,7 +143,7 @@ private bool Exclude(string memberPath, Type type)
 var options = new TesterOptions();
 options.AddExclude(Exclude);
 
-var breakIt = new BreakIt();
+var breakIt = new BreakItTester();
 breakIt.Execute(someApi, nameof(someApi.SomeMethod), new List<object> { .. }, option);
 ```
 
@@ -165,7 +165,7 @@ public interface ISimpleTestType
 }
 ```
 
-Then you add it the TestValueFactory when creating a BreakIt instance> 
+Then you add it the TestValueFactory when creating a BreakItTester instance> 
 
 ```c#
 var dictionary = new Dictionary<Type, ISimpleTestType>
@@ -173,7 +173,7 @@ var dictionary = new Dictionary<Type, ISimpleTestType>
 	[yourType] = new YourImplementedISimpleTestType()
 };
 
-var breakIt2 = new BreakIt(testValueFactory: new TestValueFactory(dictionary));
+var breakIt = new BreakItTester(testValueFactory: new TestValueFactory(dictionary));
 ```
 
 ## Logging 
@@ -187,7 +187,7 @@ BreakIt returns a result object but sometimes it's also good to log all values. 
 And you simple provide them when creating a new BreakIt instance: 
 
 ```c#
-var breakIt = new BreakIt(new ConsoleTestValueLogger());
+var breakIt = new BreakItTester(new ConsoleTestValueLogger());
 ```
 
 ## License

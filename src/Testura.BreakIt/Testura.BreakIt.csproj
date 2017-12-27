@@ -86,7 +86,7 @@
     <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="BreakIt.cs" />
+    <Compile Include="BreakItTester.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

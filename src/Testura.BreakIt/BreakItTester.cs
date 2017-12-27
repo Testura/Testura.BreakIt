@@ -12,25 +12,25 @@ namespace Testura.BreakIt
     /// Provides the functionallity to test multiple combinations of test values against
     /// a method/api.
     /// </summary>
-    public class BreakIt
+    public class BreakItTester
     {
         private readonly TestValueLogger _logger;
         private readonly ITestValueFactory _combinationFactory;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BreakIt"/> class.
+        /// Initializes a new instance of the <see cref="BreakItTester"/> class.
         /// </summary>
-        public BreakIt()
+        public BreakItTester()
         {
             _combinationFactory = new TestValueFactory();
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BreakIt"/> class.
+        /// Initializes a new instance of the <see cref="BreakItTester"/> class.
         /// </summary>
         /// <param name="testValueLogger">Optional server to log each test value.</param>
         /// <param name="testValueFactory">Optional factory to create test value combinations.</param>
-        public BreakIt(TestValueLogger testValueLogger = null, ITestValueFactory testValueFactory = null)
+        public BreakItTester(TestValueLogger testValueLogger = null, ITestValueFactory testValueFactory = null)
             : this()
         {
             _logger = testValueLogger;
