@@ -8,28 +8,56 @@ using Testura.BreakIt.TestValues.TestValueLoggers;
 
 namespace Testura.BreakIt
 {
+    /// <summary>
+    /// Provides the functionallity to test multiple combinations of test values against
+    /// a method/api.
+    /// </summary>
     public class BreakIt
     {
         private readonly TestValueLogger _logger;
         private readonly ITestValueFactory _combinationFactory;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BreakIt"/> class.
+        /// </summary>
         public BreakIt()
         {
             _combinationFactory = new TestValueFactory();
         }
 
-        public BreakIt(TestValueLogger combinationLogger = null, ITestValueFactory combinationFactory = null)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BreakIt"/> class.
+        /// </summary>
+        /// <param name="testValueLogger">Optional server to log each test value.</param>
+        /// <param name="combinationFactory">Optional factory to create test value combinations.</param>
+        public BreakIt(TestValueLogger testValueLogger = null, ITestValueFactory combinationFactory = null)
             : this()
         {
-            _logger = combinationLogger;
+            _logger = testValueLogger;
             _combinationFactory = combinationFactory ?? new TestValueFactory();
         }
 
+        /// <summary>
+        /// Execute multiple test against a method by invoking it with different test values.
+        /// </summary>
+        /// <param name="testObject">The base object to test</param>
+        /// <param name="methodName">Name of the method to test.</param>
+        /// <param name="defaultValues">A list of default values/argument to the method. Important that they match the invoked methods parameter list.</param>
+        /// <param name="options">Optional options.</param>
+        /// <returns>A list with the result of all test values.</returns>
         public IList<TestValueResult> Execute(object testObject, string methodName, IList<object> defaultValues, TesterOptions options = null)
         {
             return Execute(testObject, testObject.GetType().GetMethod(methodName), defaultValues, options);
         }
 
+        /// <summary>
+        /// Execute multiple test against a method by invoking it with different test valu
+        /// </summary>
+        /// <param name="testObject">The base object to test</param>
+        /// <param name="method">The method to invoke.</param>
+        /// <param name="defaultValues">A list of default values/argument to the method. Important that they match the invoked methods parameter list.</param>
+        /// <param name="options">Optional options.</param>
+        /// <returns>A list with the result of all test values.</returns>
         public IList<TestValueResult> Execute(object testObject, MethodInfo method, IList<object> defaultValues, TesterOptions options = null)
         {
             var paramenters = method.GetParameters();

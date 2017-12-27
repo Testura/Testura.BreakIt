@@ -1,6 +1,6 @@
 ﻿namespace Testura.BreakIt.Extensions
 {
-    public static class ObjectExtensions
+    internal static class ObjectExtensions
     {
         /// <summary>
         /// Examine if the object is a numeric type.

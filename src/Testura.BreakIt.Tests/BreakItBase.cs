@@ -17,7 +17,7 @@ namespace Testura.BreakIt.Tests
         public void SetUp()
         {
             MemoryCombinationLogger = new MemoryTestValueLogger();
-            FunkyApiTester = new BreakIt(combinationLogger: MemoryCombinationLogger);
+            FunkyApiTester = new BreakIt(testValueLogger: MemoryCombinationLogger);
         }
     }
 }
