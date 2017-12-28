@@ -1,8 +1,8 @@
 ![Testura Logo](http://testura.net/Content/Images/logo2.png)
 
-BreakIt is a simple framework to test your method or api by automatically sending different test values. The goal is to "break" the method or api by sending extreme values, boundary or funky data.
+Tired of trying to find and test all edge cases in your methods or APIs? BreakIt tries solve this problem by automatically going through all input and sending extreme values or funky data with the goal to "break it". 
 
-Technically the framework will look at your method and parameters and map it to different test values that it use at execution.
+It's also customizable so you can change, add or remove which input to test for each data type.
 
 Currently we support: 
 
