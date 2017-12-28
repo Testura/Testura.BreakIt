@@ -54,7 +54,7 @@ var breakIt = new BreakIt();
 var result = breakIt.Execute(myApi, nameof(myApi.CallApi), new List<object> { 1, "testName });
 ```
 
-After exection we get this result: 
+After execution we get this result: 
 
 ```c#
 Testing parameter id => 2147483647, Validation => No validation done, Return value => null or no return value, Exception => No exception
@@ -93,7 +93,7 @@ var defaultValue = new SomeComplexType { Name = "Test", Number = 3 };
 var result breakIt.Execute(myApi, nameof(myApi.CallApiComplex), new List<object> { 1, new List<SomeComplexType> { defaultValue }, new Dictionary<string, SomeComplexType> { ["Key"] = defaultValue }, MyApi.SomeEnum.FirstValue });
 ```
 
-After exection we get this result: 
+After execution we get this result: 
 
 ```c#
 Testing parameter id => 2147483647, Validation => No validation done, Return value => null or no return value, Exception => No exception
