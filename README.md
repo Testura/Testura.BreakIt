@@ -1,4 +1,4 @@
-![Testura Logo](http://testura.net/Content/Images/logo2.png)
+![Testura Logo](https://i.ibb.co/z7WTnp2/logo2.png)
 
 Tired of trying to find and test all edge cases in your methods or APIs? BreakIt tries solve this problem by automatically going through all input and sending extreme values or funky data with the goal to "break it". 
 
